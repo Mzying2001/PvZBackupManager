@@ -20,4 +20,4 @@
 
 ## 早期版本
 
-旧版本详见<a href="https://tieba.baidu.com/p/6507692559">这里</a>
+旧版本详见<a href="https://tieba.baidu.com/p/6507692559" target="_blank">这里</a>
