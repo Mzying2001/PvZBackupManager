@@ -49,25 +49,6 @@ namespace PvZBackupManager
         }
 
         /// <summary>
-        /// 获取字符串的index
-        /// </summary>
-        /// <param name="item"></param>
-        /// <returns></returns>
-        public int GetIndex(string item)
-        {
-            int index = -1;
-            for(int i = 0; i < Count; i++)
-            {
-                if (this[i].Equals(item))
-                {
-                    index = i;
-                    break;
-                }
-            }
-            return index;
-        }
-
-        /// <summary>
         /// 获取字符串数组
         /// </summary>
         /// <returns></returns>
@@ -128,7 +109,7 @@ namespace PvZBackupManager
         /// <param name="newname"></param>
         public void Rename(string item,string newname)
         {
-            this[GetIndex(item)] = newname;
+            this[IndexOf(item)] = newname;
             Save();
         }
 
@@ -139,8 +120,8 @@ namespace PvZBackupManager
         /// <param name="item2"></param>
         public void Swap(string item1,string item2)
         {
-            int index1 = GetIndex(item1);
-            int index2 = GetIndex(item2);
+            int index1 = IndexOf(item1);
+            int index2 = IndexOf(item2);
             if (index1 == -1 || index2 == -1)
             {
                 throw new Exception("找不到欲交换的字符串");
@@ -160,7 +141,7 @@ namespace PvZBackupManager
         /// <param name="item"></param>
         public void Up(string item)
         {
-            int index = GetIndex(item);
+            int index = IndexOf(item);
             if (index == -1)
             {
                 throw new Exception("找不到字符串");
@@ -182,7 +163,7 @@ namespace PvZBackupManager
         /// <param name="item"></param>
         public void Down(string item)
         {
-            int index = GetIndex(item);
+            int index = IndexOf(item);
             if (index == -1)
             {
                 throw new Exception("找不到字符串");
@@ -204,7 +185,7 @@ namespace PvZBackupManager
         /// <param name="item"></param>
         public void ToTop(string item)
         {
-            int index = GetIndex(item);
+            int index = IndexOf(item);
             if (index == -1)
             {
                 throw new Exception("找不到字符串");
@@ -226,7 +207,7 @@ namespace PvZBackupManager
         /// <param name="item"></param>
         public void ToBottom(string item)
         {
-            int index = GetIndex(item);
+            int index = IndexOf(item);
             if (index == -1)
             {
                 throw new Exception("找不到字符串");
