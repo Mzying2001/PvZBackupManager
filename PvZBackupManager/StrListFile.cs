@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace PvZBackupManager
@@ -36,6 +34,9 @@ namespace PvZBackupManager
             }
         }
 
+        /// <summary>
+        /// 保存文件
+        /// </summary>
         public void Save()
         {
             string str = "";
@@ -47,6 +48,11 @@ namespace PvZBackupManager
             File.WriteAllText(path, str);
         }
 
+        /// <summary>
+        /// 获取字符串的index
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         public int GetIndex(string item)
         {
             int index = -1;
@@ -61,11 +67,19 @@ namespace PvZBackupManager
             return index;
         }
 
+        /// <summary>
+        /// 获取字符串数组
+        /// </summary>
+        /// <returns></returns>
         public string[] GetItems()
         {
             return ToArray();
         }
 
+        /// <summary>
+        /// 加入字符串
+        /// </summary>
+        /// <param name="item"></param>
         public new void Add(string item)
         {
             item = item.Trim();
@@ -87,18 +101,32 @@ namespace PvZBackupManager
             }
         }
 
+        /// <summary>
+        /// 移除字符串
+        /// </summary>
+        /// <param name="item"></param>
         public new void Remove(string item)
         {
             base.Remove(item);
             Save();
         }
 
+        /// <summary>
+        /// 重命名相应字符串
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="newname"></param>
         public void Rename(string item,string newname)
         {
             this[GetIndex(item)] = newname;
             Save();
         }
 
+        /// <summary>
+        /// 交换字符串的位置
+        /// </summary>
+        /// <param name="item1"></param>
+        /// <param name="item2"></param>
         public void Swap(string item1,string item2)
         {
             int index1 = GetIndex(item1);
@@ -116,6 +144,10 @@ namespace PvZBackupManager
             }
         }
 
+        /// <summary>
+        /// 上移
+        /// </summary>
+        /// <param name="item"></param>
         public void Up(string item)
         {
             int index = GetIndex(item);
@@ -134,6 +166,10 @@ namespace PvZBackupManager
             }
         }
 
+        /// <summary>
+        /// 下移
+        /// </summary>
+        /// <param name="item"></param>
         public void Down(string item)
         {
             int index = GetIndex(item);
@@ -152,6 +188,10 @@ namespace PvZBackupManager
             }
         }
 
+        /// <summary>
+        /// 移到最前
+        /// </summary>
+        /// <param name="item"></param>
         public void ToTop(string item)
         {
             int index = GetIndex(item);
@@ -170,6 +210,10 @@ namespace PvZBackupManager
             }
         }
 
+        /// <summary>
+        /// 移到最后
+        /// </summary>
+        /// <param name="item"></param>
         public void ToBottom(string item)
         {
             int index = GetIndex(item);

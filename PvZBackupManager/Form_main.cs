@@ -27,7 +27,9 @@ namespace PvZBackupManager
             InitializeComponent();
 
             Icon = Properties.Resources.icon;
-            //旧系统(xp)下针对旧版本(v1.0.7及以下)的操作
+
+            #region 旧系统(xp)下针对旧版本(v1.0.7及以下)的操作
+
             if (Environment.OSVersion.Version.Major < 6)
             {
                 //注：此部分代码用于迁移旧版本文档
@@ -35,10 +37,23 @@ namespace PvZBackupManager
                 if (Directory.Exists(path_old) && !Directory.Exists(PATH_BKDATA))
                     Dir.Move(path_old, PATH_BKDATA);
             }
-            //检测存档管理器路径是否存在,不存在则创建该路径
-            if (!Directory.Exists(PATH_BKDATA)) Directory.CreateDirectory(PATH_BKDATA);
-            //检测存档路径是否存在,不存在则创建该路径
-            if (!Directory.Exists(PATH_BACKUPS)) Directory.CreateDirectory(PATH_BACKUPS);
+
+            #endregion
+
+            #region 检测管理器文档路径是否存在，不存在则创建路径
+
+            if (!Directory.Exists(PATH_BKDATA))
+            {
+                Directory.CreateDirectory(PATH_BKDATA);
+            }
+            if (!Directory.Exists(PATH_BACKUPS))
+            {
+                Directory.CreateDirectory(PATH_BACKUPS);
+            }
+
+            #endregion
+
+            //初始化变量
             conf = new IniFile(PATH_BKDATA + @"\string.bin", "string", "value");
             list = new StrListFile(PATH_BKDATA + @"\list.bin");
             SelectVersion();
