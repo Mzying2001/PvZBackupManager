@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
-using PvZBackupManager.Config;
 
 namespace PvZBackupManager
 {
@@ -442,7 +441,7 @@ namespace PvZBackupManager
             }
             else
             {
-                File.WriteAllText(path_xp, "");
+                File.WriteAllText(path_xp, null);
             }
             DialogResult fbd_dr = fbd.ShowDialog();
             if (fbd_dr == DialogResult.OK)

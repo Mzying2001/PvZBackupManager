@@ -62,8 +62,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config\Ini.cs" />
-    <Compile Include="Config\IniFile.cs" />
+    <Compile Include="DllImports.cs" />
+    <Compile Include="IniFile.cs" />
     <Compile Include="Dir.cs" />
     <Compile Include="Form_about.cs">
       <SubType>Form</SubType>
