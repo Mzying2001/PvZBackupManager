@@ -1,10 +1,10 @@
 # PvZBackupManager
 
-![image](https://github.com/Mzying2001/PvZBackupManager/blob/master/ScreenShots/SelectVersions.png)
-
 ![image](https://github.com/Mzying2001/PvZBackupManager/blob/master/ScreenShots/MainWindow.png)
 
 ![image](https://github.com/Mzying2001/PvZBackupManager/blob/master/ScreenShots/About.png)
+
+![image](https://github.com/Mzying2001/PvZBackupManager/blob/master/ScreenShots/SelectVersions.png)
 
 ## 关于软件
 
