@@ -1,6 +1,6 @@
 # PvZBackupManager
 
-旧版本详见<a href="https://tieba.baidu.com/p/6507692559">这里</a>
+![image](https://github.com/Mzying2001/PvZBackupManager/blob/master/PvZBackupManager/Resources/icon_72px.png)
 
 ## 关于软件
 
@@ -11,3 +11,7 @@
 软件支持原版（包括年度版）、Steam版、Zoo日文版
 
 对于年度加强版（非精简版），在恢复存档前必须先关闭游戏，否则会报错
+
+## 早期版本
+
+旧版本详见<a href="https://tieba.baidu.com/p/6507692559">这里</a>
