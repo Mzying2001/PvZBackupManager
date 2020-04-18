@@ -36,13 +36,12 @@ namespace PvZBackupManager
 
         private void LinkLabel_update_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Clipboard.SetText("4m2s");
-            MessageBox.Show("已将提取码复制到剪切板，即将打开百度网盘\r\n提取码：4m2s", "提示");
-            Process.Start("https://pan.baidu.com/s/1r5GVOi4zB-PyFa51yQNmZw");
+            Process.Start("https://github.com/Mzying2001/PvZBackupManager");
         }
     }
 
-    //更新日志窗口（内部类）
+    #region 更新日志窗口
+
     class Form_log : Form
     {
         private TextBox tb = new TextBox()
@@ -82,5 +81,7 @@ namespace PvZBackupManager
             tb.Height = ClientSize.Height;
         }
     }
+
+    #endregion
 
 }

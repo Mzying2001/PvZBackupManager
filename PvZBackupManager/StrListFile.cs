@@ -112,6 +112,16 @@ namespace PvZBackupManager
         }
 
         /// <summary>
+        /// 移除指定位置的字符串
+        /// </summary>
+        /// <param name="index"></param>
+        public new void RemoveAt(int index)
+        {
+            base.RemoveAt(index);
+            Save();
+        }
+
+        /// <summary>
         /// 重命名相应字符串
         /// </summary>
         /// <param name="item"></param>

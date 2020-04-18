@@ -84,7 +84,7 @@
             this.linkLabel_update.Size = new System.Drawing.Size(56, 17);
             this.linkLabel_update.TabIndex = 8;
             this.linkLabel_update.TabStop = true;
-            this.linkLabel_update.Text = "检查更新";
+            this.linkLabel_update.Text = "查看代码";
             this.linkLabel_update.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel_update_LinkClicked);
             // 
             // Form_about

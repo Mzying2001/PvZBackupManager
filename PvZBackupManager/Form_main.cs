@@ -32,10 +32,11 @@ namespace PvZBackupManager
 
             if (Environment.OSVersion.Version.Major < 6)
             {
-                //注：此部分代码用于迁移旧版本文档
                 string path_old = @"C:\ProgramData\PvZBackupManager";
                 if (Directory.Exists(path_old) && !Directory.Exists(PATH_BKDATA))
+                {
                     Dir.Move(path_old, PATH_BKDATA);
+                }
             }
 
             #endregion
@@ -53,7 +54,7 @@ namespace PvZBackupManager
 
             #endregion
 
-            //初始化变量
+            /*初始化变量*/
             conf = new IniFile(PATH_BKDATA + @"\string.bin", "string", "value");
             list = new StrListFile(PATH_BKDATA + @"\list.bin");
             SelectVersion();
@@ -97,7 +98,7 @@ namespace PvZBackupManager
                 }
                 else
                 {
-                    list.Remove(list[i]);
+                    list.RemoveAt(i);
                 }
             }
             ListBox_backups_SelectedIndexChanged(null, null);
