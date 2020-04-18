@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace PvZBackupManager.Config
 {
-    class Ini
+    abstract class Ini
     {
         [DllImport("kernel32")] // 写入配置文件的接口
         private static extern long WritePrivateProfileString(string section, string key, string val, string filePath);

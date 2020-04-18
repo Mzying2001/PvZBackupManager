@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
+﻿using System.IO;
 
 namespace PvZBackupManager.Config
 {
-    class IniFile:Ini
+    class IniFile : Ini
     {
 
         private string path;
@@ -18,7 +13,10 @@ namespace PvZBackupManager.Config
         {
             SetPath(path);
             SetSectionAndKey(section, key);
-            if (!File.Exists(path)) File.WriteAllText(path, "");
+            if (!File.Exists(path))
+            {
+                File.WriteAllText(path, null);
+            }
         }
         public void SetPath(string path)
         {
