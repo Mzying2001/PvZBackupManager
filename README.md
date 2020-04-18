@@ -1,5 +1,7 @@
 # PvZBackupManager
 
+旧版本详见<a href="https://tieba.baidu.com/p/6507692559">这里</a>
+
 ## 关于软件
 
 本软件是植物大战僵尸存档管理器，用于备份/恢复植物大战僵尸的游戏存档
