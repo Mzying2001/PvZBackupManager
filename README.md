@@ -1,14 +1,16 @@
 # PvZBackupManager
 
+## 关于软件
+
+本软件是植物大战僵尸存档管理器，用于备份/恢复植物大战僵尸的游戏存档
+
+## 屏幕截图
+
 ![image](https://github.com/Mzying2001/PvZBackupManager/blob/master/ScreenShots/MainWindow.png)
 
 ![image](https://github.com/Mzying2001/PvZBackupManager/blob/master/ScreenShots/About.png)
 
 ![image](https://github.com/Mzying2001/PvZBackupManager/blob/master/ScreenShots/SelectVersions.png)
-
-## 关于软件
-
-本软件是植物大战僵尸存档管理器，用于备份/恢复植物大战僵尸的游戏存档
 
 ## 支持版本
 
