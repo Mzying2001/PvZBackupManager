@@ -131,9 +131,8 @@ namespace PvZBackupManager
 
         private void Button_create_Click(object sender, EventArgs e)
         {
-            bool created;
-            DialogResult dr = new Form_create(gamever).ShowDialog();
-            if (dr == Form_create.DIALOGRESULT_NOTHINGCREATED)
+            bool created = true;
+            if (new Form_create(gamever).ShowDialog() == Form_create.DIALOGRESULT_NOTHINGCREATED)
             {
                 created = false;
             }
@@ -141,10 +140,6 @@ namespace PvZBackupManager
             {
                 created = false;
                 ShowErrorMessage("无法创建,因为命名出现重复");
-            }
-            else
-            {
-                created = true;
             }
             if (created)
             {
@@ -159,17 +154,18 @@ namespace PvZBackupManager
 
         private void Button_restore_Click(object sender, EventArgs e)
         {
+            string SelectedItem = listBox_backups.SelectedItem.ToString();
             string text;
             text = "确定要恢复备份\"{0}\"吗?\r\n此操作会覆盖当前存档";
-            text = MyString.Format(text, listBox_backups.SelectedItem.ToString());
-            DialogResult d = MessageBox.Show(text, "提示", MessageBoxButtons.YesNo);
-            if (d == DialogResult.Yes)
+            text = MyString.Format(text, SelectedItem);
+
+            if (MessageBox.Show(text, "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 try
                 {
                     Dir.Delete(path_userdata, true);
-                    Dir.Copy(PATH_BACKUPS + @"\" + listBox_backups.SelectedItem.ToString() + @"\userdata", path_userdata);
-                    MessageBox.Show(MyString.Format("已恢复到备份\"{0}\"", listBox_backups.SelectedItem.ToString()), "提示");
+                    Dir.Copy(PATH_BACKUPS + @"\" + SelectedItem + @"\userdata", path_userdata);
+                    MessageBox.Show(MyString.Format("已恢复到备份\"{0}\"", SelectedItem), "提示");
                 }
                 catch (Exception ex)
                 {
@@ -184,9 +180,10 @@ namespace PvZBackupManager
         private void ListBox_backups_SelectedIndexChanged(object sender, EventArgs e)
         {
             SetBottomText(MyString.Format("已备份存档{0}个", listBox_backups.Items.Count));
-            if (listBox_backups.SelectedIndex >= 0) 
-                 button_restore.Enabled = true;
-            else button_restore.Enabled = false;
+            if (listBox_backups.SelectedIndex >= 0)
+                button_restore.Enabled = true;
+            else
+                button_restore.Enabled = false;
         }
 
         private void ListBox_backups_MouseDown(object sender, MouseEventArgs e)
@@ -283,19 +280,19 @@ namespace PvZBackupManager
 
         private void ToTop_Click(object sender, EventArgs e)
         {
-            string s = listBox_backups.Items[listBox_backups.SelectedIndex].ToString();
-            list.ToTop(s);
-            listBox_backups.Items.Remove(s);
-            listBox_backups.Items.Insert(0, s);
+            string item = listBox_backups.Items[listBox_backups.SelectedIndex].ToString();
+            list.ToTop(item);
+            listBox_backups.Items.Remove(item);
+            listBox_backups.Items.Insert(0, item);
             listBox_backups.SetSelected(0, true);
         }
 
         private void ToBottom_Click(object sender, EventArgs e)
         {
-            string s = listBox_backups.Items[listBox_backups.SelectedIndex].ToString();
-            list.ToBottom(s);
-            listBox_backups.Items.Remove(s);
-            listBox_backups.Items.Add(s);
+            string item = listBox_backups.Items[listBox_backups.SelectedIndex].ToString();
+            list.ToBottom(item);
+            listBox_backups.Items.Remove(item);
+            listBox_backups.Items.Add(item);
             listBox_backups.SetSelected(listBox_backups.Items.Count - 1, true);
         }
 
@@ -306,23 +303,24 @@ namespace PvZBackupManager
 
         private void Delete_Click(object sender, EventArgs e)
         {
+            string SelectedItem = listBox_backups.SelectedItem.ToString();
             string text;
             text = "确定要删除备份\"{0}\"吗?\r\n此操作不可恢复";
-            text = MyString.Format(text, listBox_backups.SelectedItem.ToString());
-            DialogResult d = MessageBox.Show(text, "提示", MessageBoxButtons.YesNo);
-            if (d == DialogResult.Yes)
+            text = MyString.Format(text, SelectedItem);
+
+            if (MessageBox.Show(text, "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                Dir.Delete(PATH_BACKUPS + @"\" + listBox_backups.SelectedItem.ToString());
-                list.Remove(listBox_backups.SelectedItem.ToString());
+                Dir.Delete(PATH_BACKUPS + @"\" + SelectedItem);
+                list.Remove(SelectedItem);
                 listBox_backups.Items.RemoveAt(listBox_backups.SelectedIndex);
             }
         }
 
         private void Rename_Click(object sender, EventArgs e)
         {
-            bool changed;
-            DialogResult dr = new Form_rename(listBox_backups.SelectedItem.ToString()).ShowDialog();
-            if (dr == Form_rename.DIALOGRESULT_NOTHINGCHANGED)
+            bool changed = true;
+            string SelectedItem = listBox_backups.SelectedItem.ToString();
+            if (new Form_rename(SelectedItem).ShowDialog() == Form_rename.DIALOGRESULT_NOTHINGCHANGED)
             {
                 changed = false;
             }
@@ -331,14 +329,10 @@ namespace PvZBackupManager
                 changed = false;
                 ShowErrorMessage("无法重命名,因为存在同名备份");
             }
-            else
-            {
-                changed = true;
-            }
             if (changed)
             {
-                list.Rename(listBox_backups.SelectedItem.ToString(), conf.Read());
-                Dir.Move(PATH_BACKUPS + @"\" + listBox_backups.SelectedItem.ToString(), PATH_BACKUPS + @"\" + conf.Read());
+                list.Rename(SelectedItem, conf.Read());
+                Dir.Move(PATH_BACKUPS + @"\" + SelectedItem, PATH_BACKUPS + @"\" + conf.Read());
 
                 int index = listBox_backups.SelectedIndex;
                 listBox_backups.Items.RemoveAt(index);
@@ -349,14 +343,17 @@ namespace PvZBackupManager
 
         private void Export_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog fbd = new FolderBrowserDialog();
-            fbd.Description = MyString.Format("导出备份\"{0}\"\r\n\r\n请选择导出目录", listBox_backups.SelectedItem.ToString());
+            string SelectedItem = listBox_backups.SelectedItem.ToString();
+            FolderBrowserDialog fbd = new FolderBrowserDialog
+            {
+                Description = MyString.Format("导出备份\"{0}\"\r\n\r\n请选择导出目录", SelectedItem)
+            };
             if (fbd.ShowDialog() == DialogResult.OK)
             {
-                string source = PATH_BACKUPS + @"\" + listBox_backups.SelectedItem.ToString();
-                string destination = fbd.SelectedPath + @"\" + listBox_backups.SelectedItem.ToString();
+                string source = PATH_BACKUPS + @"\" + SelectedItem;
+                string destination = fbd.SelectedPath + @"\" + SelectedItem;
                 Dir.Copy(source, destination);
-                MessageBox.Show(MyString.Format("已导出\"{0}\"到\r\n\"{1}\"", listBox_backups.SelectedItem.ToString(), fbd.SelectedPath), "提示");
+                MessageBox.Show(MyString.Format("已导出\"{0}\"到\r\n\"{1}\"", SelectedItem, fbd.SelectedPath), "提示");
             }
         }
 
@@ -392,11 +389,13 @@ namespace PvZBackupManager
         {
             if (i != j)
             {
-                string[] name = new string[2] { listBox_backups.Items[i].ToString(), listBox_backups.Items[j].ToString() };
+                string name1 = listBox_backups.Items[i].ToString();
+                string name2 = listBox_backups.Items[j].ToString();
+
                 listBox_backups.Items.RemoveAt(i);
-                listBox_backups.Items.Insert(i, name[1]);
+                listBox_backups.Items.Insert(i, name2);
                 listBox_backups.Items.RemoveAt(j);
-                listBox_backups.Items.Insert(j, name[0]);
+                listBox_backups.Items.Insert(j, name1);
             }
         }
         /// <summary>
@@ -428,11 +427,13 @@ namespace PvZBackupManager
         /// </summary>
         private void SetPath()
         {
-            FolderBrowserDialog fbd = new FolderBrowserDialog();
-            fbd.ShowNewFolderButton = false;
-            fbd.Description = Environment.OSVersion.Version.Major < 6 ?
+            FolderBrowserDialog fbd = new FolderBrowserDialog
+            {
+                ShowNewFolderButton = false,
+                Description = Environment.OSVersion.Version.Major < 6 ?
                 "当前系统版本过低，您需要手动选择存档路径\r\n\r\n请选择\"userdata\"所在目录" :
-                "找不到游戏存档路径，您需要手动选择存档路径\r\n\r\n请选择\"userdata\"所在目录";
+                "找不到游戏存档路径，您需要手动选择存档路径\r\n\r\n请选择\"userdata\"所在目录"
+            };
             string path_xp = MyString.Path_BKdata + @"\xp.bin";
             if (File.Exists(path_xp))
             {
