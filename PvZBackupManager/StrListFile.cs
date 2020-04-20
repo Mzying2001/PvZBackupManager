@@ -10,6 +10,18 @@ namespace PvZBackupManager
 
         private readonly string path;
 
+        public new string this[int index]
+        {
+            get
+            {
+                return base[index];
+            }
+            private set
+            {
+                base[index] = value;
+            }
+        }
+
         public StrListFile(string path)
         {
             this.path = path;
