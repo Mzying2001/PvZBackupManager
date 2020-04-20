@@ -10,6 +10,7 @@ namespace PvZBackupManager
         
         private readonly string PATH_BKDATA  = MyString.Path_BKdata;    //存档管理器文档路径
         private readonly string PATH_BACKUPS = MyString.Path_backups;   //备份文件路径
+
         private const string PATH_PVZUSERDATA_ORIGINAL = MyString.PATH_PVZUSERDATA_ORIGINAL;    //原版存档路径
         private const string PATH_PVZUSERDATA_STEAM    = MyString.PATH_PVZUSERDATA_STEAM;       //steam版存档路径
         private const string PATH_PVZUSERDATA_ZOO_JP   = MyString.PATH_PVZUSERDATA_ZOO_JP;      //日文版存档路径
