@@ -46,6 +46,11 @@ namespace PvZBackupManager
             }
         }
 
+        ~StrListFile()
+        {
+            Save();
+        }
+
         /// <summary>
         /// 保存文件
         /// </summary>
@@ -58,15 +63,6 @@ namespace PvZBackupManager
             }
             str = str.Trim();
             File.WriteAllText(path, str);
-        }
-
-        /// <summary>
-        /// 获取字符串数组
-        /// </summary>
-        /// <returns></returns>
-        public string[] GetItems()
-        {
-            return ToArray();
         }
 
         /// <summary>
@@ -85,7 +81,6 @@ namespace PvZBackupManager
                 else
                 {
                     base.Add(item);
-                    Save();
                 }
             }
             else
@@ -101,7 +96,6 @@ namespace PvZBackupManager
         public new void Remove(string item)
         {
             base.Remove(item);
-            Save();
         }
 
         /// <summary>
@@ -111,7 +105,6 @@ namespace PvZBackupManager
         public new void RemoveAt(int index)
         {
             base.RemoveAt(index);
-            Save();
         }
 
         /// <summary>
@@ -122,29 +115,6 @@ namespace PvZBackupManager
         public void Rename(string item,string newname)
         {
             this[IndexOf(item)] = newname;
-            Save();
-        }
-
-        /// <summary>
-        /// 交换字符串的位置
-        /// </summary>
-        /// <param name="item1"></param>
-        /// <param name="item2"></param>
-        public void Swap(string item1,string item2)
-        {
-            int index1 = IndexOf(item1);
-            int index2 = IndexOf(item2);
-            if (index1 == -1 || index2 == -1)
-            {
-                throw new Exception("找不到欲交换的字符串");
-            }
-            else
-            {
-                string tmp = this[index1];
-                this[index1] = this[index2];
-                this[index2] = tmp;
-                Save();
-            }
         }
 
         /// <summary>
@@ -164,7 +134,6 @@ namespace PvZBackupManager
                 {
                     RemoveAt(index);
                     Insert(index - 1, item);
-                    Save();
                 }
             }
         }
@@ -186,7 +155,6 @@ namespace PvZBackupManager
                 {
                     RemoveAt(index);
                     Insert(index + 1, item);
-                    Save();
                 }
             }
         }
@@ -208,7 +176,6 @@ namespace PvZBackupManager
                 {
                     RemoveAt(index);
                     Insert(0, item);
-                    Save();
                 }
             }
         }
@@ -230,7 +197,6 @@ namespace PvZBackupManager
                 {
                     RemoveAt(index);
                     Add(item);
-                    Save();
                 }
             }
         }
