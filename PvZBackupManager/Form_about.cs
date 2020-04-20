@@ -41,7 +41,7 @@ namespace PvZBackupManager
 
         private void LinkLabel_update_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("https://github.com/Mzying2001/PvZBackupManager/releases");
+            Process.Start("https://github.com/Mzying2001/PvZBackupManager/releases/latest");
         }
     }
 
