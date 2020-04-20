@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace PvZBackupManager
@@ -16,7 +17,6 @@ namespace PvZBackupManager
             InitializeComponent();
 
             string name;
-            StrListFile list = new StrListFile(MyString.Path_BKdata + @"\list.bin");
             switch (gamever)
             {
                 case PVZVersion.STEAM:  name = "Steam"; break;
@@ -28,7 +28,7 @@ namespace PvZBackupManager
                 string tmp = i.ToString();
                 while (tmp.Length < 3) tmp = "0" + tmp;
                 tmp = MyString.Format("{0} - {1}", name, tmp);
-                if (!list.Contains(tmp))
+                if (!Directory.Exists(MyString.Path_backups + @"\" + tmp))
                 {
                     name = tmp;
                     break;
