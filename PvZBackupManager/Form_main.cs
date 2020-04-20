@@ -90,7 +90,10 @@ namespace PvZBackupManager
 
         private void Form_main_Load(object sender, EventArgs e)
         {
-            for(int i = list.Count - 1; i >= 0; i--)
+
+            #region 加入item
+
+            for (int i = list.Count - 1; i >= 0; i--)
             {
                 if (Directory.Exists(PATH_BACKUPS + @"\" + list[i]))
                 {
@@ -101,11 +104,31 @@ namespace PvZBackupManager
                     list.RemoveAt(i);
                 }
             }
+            foreach(var tmp in Directory.GetDirectories(PATH_BACKUPS))
+            {
+                string name = tmp.Substring(tmp.LastIndexOf('\\') + 1);
+                if(!list.Contains(name))
+                {
+                    if(Directory.Exists(tmp + @"\userdata"))
+                    {
+                        list.Add(name);
+                        listBox_backups.Items.Add(name);
+                    }
+                    else
+                    {
+                        Dir.Delete(tmp);
+                    }
+                }
+            }
+
+            #endregion
+
             ListBox_backups_SelectedIndexChanged(null, null);
             Form_main_SizeChanged(null, null);
             Activate();
+
         }
-        
+
         private void Form_main_SizeChanged(object sender, EventArgs e)
         {
             listBox_backups.Height = ClientSize.Height - listBox_backups.Top - label_info.Height - 6;
@@ -133,6 +156,9 @@ namespace PvZBackupManager
         private void Button_create_Click(object sender, EventArgs e)
         {
             bool created = true;
+
+            #region 判断是否创建
+
             if (new Form_create(gamever).ShowDialog() == Form_create.DIALOGRESULT_NOTHINGCREATED)
             {
                 created = false;
@@ -142,6 +168,9 @@ namespace PvZBackupManager
                 created = false;
                 ShowErrorMessage("无法创建,因为命名出现重复");
             }
+
+            #endregion
+
             if (created)
             {
                 list.Add(conf.Read());
@@ -321,6 +350,9 @@ namespace PvZBackupManager
         {
             bool changed = true;
             string SelectedItem = listBox_backups.SelectedItem.ToString();
+
+            #region 判断是否重命名
+
             if (new Form_rename(SelectedItem).ShowDialog() == Form_rename.DIALOGRESULT_NOTHINGCHANGED)
             {
                 changed = false;
@@ -330,6 +362,9 @@ namespace PvZBackupManager
                 changed = false;
                 ShowErrorMessage("无法重命名,因为存在同名备份");
             }
+
+            #endregion
+
             if (changed)
             {
                 list.Rename(SelectedItem, conf.Read());
