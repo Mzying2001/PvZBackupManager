@@ -34,9 +34,14 @@ namespace PvZBackupManager
             new Form_log(Properties.Resources.updatelog, "更新日志").ShowDialog();
         }
 
-        private void LinkLabel_update_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void LinkLabel_viewSource_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start("https://github.com/Mzying2001/PvZBackupManager");
+        }
+
+        private void LinkLabel_update_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://github.com/Mzying2001/PvZBackupManager/releases");
         }
     }
 

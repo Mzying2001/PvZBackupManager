@@ -32,6 +32,7 @@
             this.label_title = new System.Windows.Forms.Label();
             this.pictureBox_icon = new System.Windows.Forms.PictureBox();
             this.linkLabel_updatelog = new System.Windows.Forms.LinkLabel();
+            this.linkLabel_viewSource = new System.Windows.Forms.LinkLabel();
             this.linkLabel_update = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_icon)).BeginInit();
             this.SuspendLayout();
@@ -68,7 +69,7 @@
             // linkLabel_updatelog
             // 
             this.linkLabel_updatelog.AutoSize = true;
-            this.linkLabel_updatelog.Location = new System.Drawing.Point(274, 115);
+            this.linkLabel_updatelog.Location = new System.Drawing.Point(212, 115);
             this.linkLabel_updatelog.Name = "linkLabel_updatelog";
             this.linkLabel_updatelog.Size = new System.Drawing.Size(56, 17);
             this.linkLabel_updatelog.TabIndex = 6;
@@ -76,15 +77,26 @@
             this.linkLabel_updatelog.Text = "更新日志";
             this.linkLabel_updatelog.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel_updatelog_LinkClicked);
             // 
+            // linkLabel_viewSource
+            // 
+            this.linkLabel_viewSource.AutoSize = true;
+            this.linkLabel_viewSource.Location = new System.Drawing.Point(274, 115);
+            this.linkLabel_viewSource.Name = "linkLabel_viewSource";
+            this.linkLabel_viewSource.Size = new System.Drawing.Size(56, 17);
+            this.linkLabel_viewSource.TabIndex = 8;
+            this.linkLabel_viewSource.TabStop = true;
+            this.linkLabel_viewSource.Text = "查看源码";
+            this.linkLabel_viewSource.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel_viewSource_LinkClicked);
+            // 
             // linkLabel_update
             // 
             this.linkLabel_update.AutoSize = true;
             this.linkLabel_update.Location = new System.Drawing.Point(336, 115);
             this.linkLabel_update.Name = "linkLabel_update";
             this.linkLabel_update.Size = new System.Drawing.Size(56, 17);
-            this.linkLabel_update.TabIndex = 8;
+            this.linkLabel_update.TabIndex = 9;
             this.linkLabel_update.TabStop = true;
-            this.linkLabel_update.Text = "查看代码";
+            this.linkLabel_update.Text = "下载新版";
             this.linkLabel_update.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel_update_LinkClicked);
             // 
             // Form_about
@@ -94,6 +106,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(404, 141);
             this.Controls.Add(this.linkLabel_update);
+            this.Controls.Add(this.linkLabel_viewSource);
             this.Controls.Add(this.linkLabel_updatelog);
             this.Controls.Add(this.label_title);
             this.Controls.Add(this.label_info);
@@ -120,6 +133,7 @@
         private System.Windows.Forms.Label label_title;
         private System.Windows.Forms.PictureBox pictureBox_icon;
         private System.Windows.Forms.LinkLabel linkLabel_updatelog;
+        private System.Windows.Forms.LinkLabel linkLabel_viewSource;
         private System.Windows.Forms.LinkLabel linkLabel_update;
     }
 }
