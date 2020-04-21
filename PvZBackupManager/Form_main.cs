@@ -70,7 +70,7 @@ namespace PvZBackupManager
             {
                 string output = "";
                 output += 
-                    MyString.Format("【文件夹路径】\r\n{0}\r\n{1}\r\n{2}\r\n{3}\r\n{4}\r\n{5}\r\n\r\n",
+                    string.Format("【文件夹路径】\r\n{0}\r\n{1}\r\n{2}\r\n{3}\r\n{4}\r\n{5}\r\n\r\n",
                     MyString.Path_AppData,
                     MyString.Path_BKdata,
                     MyString.Path_backups,
@@ -79,7 +79,7 @@ namespace PvZBackupManager
                     MyString.PATH_PVZUSERDATA_ZOO_JP
                     );
                 output +=
-                    MyString.Format("【当前】\r\nOS version (major): {0}\r\ngamever: {1}\r\npath_userdata: {2}",
+                    string.Format("【当前】\r\nOS version (major): {0}\r\ngamever: {1}\r\npath_userdata: {2}",
                     Environment.OSVersion.Version.Major, gamever, path_userdata);
                 MessageBox.Show(output, "DEBUG");
             }
@@ -187,7 +187,7 @@ namespace PvZBackupManager
             string SelectedItem = listBox_backups.SelectedItem.ToString();
             string text;
             text = "确定要恢复备份\"{0}\"吗?\r\n此操作会覆盖当前存档";
-            text = MyString.Format(text, SelectedItem);
+            text = string.Format(text, SelectedItem);
 
             if (MessageBox.Show(text, "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
@@ -195,13 +195,13 @@ namespace PvZBackupManager
                 {
                     Dir.Delete(path_userdata, true);
                     Dir.Copy(PATH_BACKUPS + @"\" + SelectedItem + @"\userdata", path_userdata);
-                    MessageBox.Show(MyString.Format("已恢复到备份\"{0}\"", SelectedItem), "提示");
+                    MessageBox.Show(string.Format("已恢复到备份\"{0}\"", SelectedItem), "提示");
                 }
                 catch (Exception ex)
                 {
                     string errormsg;
                     errormsg = "无法恢复备份，若多次出现此错误，请尝试关闭游戏后重试。\r\n错误信息：{0}";
-                    errormsg = MyString.Format(errormsg, ex.Message);
+                    errormsg = string.Format(errormsg, ex.Message);
                     ShowErrorMessage(errormsg);
                 }
             }
@@ -209,7 +209,7 @@ namespace PvZBackupManager
 
         private void ListBox_backups_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SetBottomText(MyString.Format("已备份存档{0}个", listBox_backups.Items.Count));
+            SetBottomText(string.Format("已备份存档{0}个", listBox_backups.Items.Count));
             if (listBox_backups.SelectedIndex >= 0)
                 button_restore.Enabled = true;
             else
@@ -272,19 +272,19 @@ namespace PvZBackupManager
             switch (gamever)
             {
                 case PVZVersion.ORIGINAL:
-                    tmp = MyString.Format(tmp, "原版");
+                    tmp = string.Format(tmp, "原版");
                     break;
 
                 case PVZVersion.STEAM:
-                    tmp = MyString.Format(tmp, "Steam版");
+                    tmp = string.Format(tmp, "Steam版");
                     break;
 
                 case PVZVersion.ZOO_JP:
-                    tmp = MyString.Format(tmp, "Zoo日文版");
+                    tmp = string.Format(tmp, "Zoo日文版");
                     break;
 
                 case PVZVersion.XPMODE:
-                    tmp = MyString.Format("正在使用\"{0}\"", path_userdata);
+                    tmp = string.Format("正在使用\"{0}\"", path_userdata);
                     contextMenuStrip_options.Items["currentgamever"].Enabled = false;
                     break;
             }
@@ -336,7 +336,7 @@ namespace PvZBackupManager
             string SelectedItem = listBox_backups.SelectedItem.ToString();
             string text;
             text = "确定要删除备份\"{0}\"吗?\r\n此操作不可恢复";
-            text = MyString.Format(text, SelectedItem);
+            text = string.Format(text, SelectedItem);
 
             if (MessageBox.Show(text, "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
@@ -382,14 +382,14 @@ namespace PvZBackupManager
             string SelectedItem = listBox_backups.SelectedItem.ToString();
             FolderBrowserDialog fbd = new FolderBrowserDialog
             {
-                Description = MyString.Format("导出备份\"{0}\"\r\n\r\n请选择导出目录", SelectedItem)
+                Description = string.Format("导出备份\"{0}\"\r\n\r\n请选择导出目录", SelectedItem)
             };
             if (fbd.ShowDialog() == DialogResult.OK)
             {
                 string source = PATH_BACKUPS + @"\" + SelectedItem;
                 string destination = fbd.SelectedPath + @"\" + SelectedItem;
                 Dir.Copy(source, destination);
-                MessageBox.Show(MyString.Format("已导出\"{0}\"到\r\n\"{1}\"", SelectedItem, fbd.SelectedPath), "提示");
+                MessageBox.Show(string.Format("已导出\"{0}\"到\r\n\"{1}\"", SelectedItem, fbd.SelectedPath), "提示");
             }
         }
 
@@ -491,7 +491,7 @@ namespace PvZBackupManager
                 }
                 else
                 {
-                    ShowErrorMessage(MyString.Format("找不到路径\"{0}\"", path_userdata));
+                    ShowErrorMessage(string.Format("找不到路径\"{0}\"", path_userdata));
                     Environment.Exit(0);
                 }
             }
@@ -506,7 +506,7 @@ namespace PvZBackupManager
         private void RemoveReadOnly()
         {
             string bat = MyString.Path_BKdata + @"\attrib.bat";
-            string cmd = MyString.Format(Properties.Resources.attrib, PATH_BACKUPS, path_userdata);
+            string cmd = string.Format(Properties.Resources.attrib, PATH_BACKUPS, path_userdata);
             File.WriteAllText(bat, cmd);
 
             Process proc = new Process();

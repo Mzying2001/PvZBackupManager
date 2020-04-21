@@ -19,7 +19,7 @@ namespace PvZBackupManager
 
         private void Form_about_Load(object sender, EventArgs e)
         {
-            label_info.Text = MyString.Format("版本 {0}-{1} | by {2}", Application.ProductVersion, BUILDVER, Application.CompanyName);
+            label_info.Text = string.Format("版本 {0}-{1} | by {2}", Application.ProductVersion, BUILDVER, Application.CompanyName);
             
             pictureBox_icon.Top  = (ClientSize.Height - pictureBox_icon.Height) / 2;
             pictureBox_icon.Left = (ClientSize.Width - pictureBox_icon.Width - label_title.Width) / 2;

@@ -12,17 +12,6 @@ namespace PvZBackupManager
         public const string PATH_PVZUSERDATA_STEAM    = @"C:\ProgramData\Steam\PlantsVsZombies\userdata";
         public const string PATH_PVZUSERDATA_ZOO_JP   = @"C:\ProgramData\Zoo\Plants vs Zombies\userdata";
 
-        public static string Format(string format, params object[] arg)
-        {
-            string str_return = format;
-            for (int i = 0; i < arg.Length; i++)
-            {
-                string str_replace = "{" + i + "}";
-                str_return = str_return.Replace(str_replace, arg[i].ToString());
-            }
-            return str_return;
-        }
-
         public enum IsLegalBackupName_RESULT
         {
             LEGAL,

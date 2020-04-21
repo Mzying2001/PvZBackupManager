@@ -27,7 +27,7 @@ namespace PvZBackupManager
             {
                 string tmp = i.ToString();
                 while (tmp.Length < 3) tmp = "0" + tmp;
-                tmp = MyString.Format("{0} - {1}", name, tmp);
+                tmp = string.Format("{0} - {1}", name, tmp);
                 if (!Directory.Exists(MyString.Path_backups + @"\" + tmp))
                 {
                     name = tmp;
