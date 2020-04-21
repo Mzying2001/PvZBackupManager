@@ -8,9 +8,13 @@ namespace PvZBackupManager
         public static string Path_AppData = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
         public static string Path_BKdata  = Path_AppData + @"\PvZBackupManager";
         public static string Path_backups = Path_BKdata  + @"\backups";
+
         public const string PATH_PVZUSERDATA_ORIGINAL = @"C:\ProgramData\PopCap Games\PlantsVsZombies\userdata";
         public const string PATH_PVZUSERDATA_STEAM    = @"C:\ProgramData\Steam\PlantsVsZombies\userdata";
         public const string PATH_PVZUSERDATA_ZOO_JP   = @"C:\ProgramData\Zoo\Plants vs Zombies\userdata";
+
+        public const string URL_VIEWSOURCE = "https://github.com/Mzying2001/PvZBackupManager";
+        public const string URL_UPDATE     = "https://mzying2001.github.io/PvZBackupManager/Update.txt";
 
         public enum IsLegalBackupName_RESULT
         {

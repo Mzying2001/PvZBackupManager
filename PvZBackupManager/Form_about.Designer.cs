@@ -96,7 +96,7 @@
             this.linkLabel_update.Size = new System.Drawing.Size(56, 17);
             this.linkLabel_update.TabIndex = 9;
             this.linkLabel_update.TabStop = true;
-            this.linkLabel_update.Text = "下载新版";
+            this.linkLabel_update.Text = "检查更新";
             this.linkLabel_update.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel_update_LinkClicked);
             // 
             // Form_about
@@ -120,6 +120,7 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "关于";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_about_FormClosing);
             this.Load += new System.EventHandler(this.Form_about_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_icon)).EndInit();
             this.ResumeLayout(false);
