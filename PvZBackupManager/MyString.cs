@@ -14,7 +14,7 @@ namespace PvZBackupManager
         public const string PATH_PVZUSERDATA_ZOO_JP   = @"C:\ProgramData\Zoo\Plants vs Zombies\userdata";
 
         public const string URL_VIEWSOURCE = "https://github.com/Mzying2001/PvZBackupManager";
-        public const string URL_UPDATE     = "https://mzying2001.github.io/PvZBackupManager/Update.txt";
+        public const string URL_UPDATE     = "https://Mzying2001.github.io/AppUpdates/PvZBackupManager.txt";
 
         public enum IsLegalBackupName_RESULT
         {

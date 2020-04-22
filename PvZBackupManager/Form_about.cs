@@ -52,8 +52,10 @@ namespace PvZBackupManager
 
         private void LinkLabel_update_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            linkLabel_update.Enabled = false;
-            linkLabel_update.Text = "加载中...";
+            linkLabel_update.Visible = false;
+            linkLabel_updatelog.Visible = false;
+            linkLabel_viewSource.Enabled = false;
+            linkLabel_viewSource.Text = "正在检查更新...";
 
             update = new Thread(new ThreadStart(GetUpDateMessage));
             update.Start();
@@ -88,8 +90,13 @@ namespace PvZBackupManager
             {
                 MessageBox.Show(ex.Message, "错误");
             }
-            linkLabel_update.Enabled = true;
-            linkLabel_update.Text = "检查更新";
+            finally
+            {
+                linkLabel_update.Visible = true;
+                linkLabel_updatelog.Visible = true;
+                linkLabel_viewSource.Enabled = true;
+                linkLabel_viewSource.Text = "查看源码";
+            }
         }
 
         private void GetUpDateMessage()
