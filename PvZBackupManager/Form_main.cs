@@ -78,6 +78,10 @@ namespace PvZBackupManager
                     MyString.PATH_PVZUSERDATA_STEAM,
                     MyString.PATH_PVZUSERDATA_ZOO_JP
                     );
+                output += string.Format("【URL】\r\n{0}\r\n{1}\r\n\r\n",
+                    MyString.URL_VIEWSOURCE,
+                    MyString.URL_UPDATE
+                    );
                 output +=
                     string.Format("【当前】\r\nOS version (major): {0}\r\ngamever: {1}\r\npath_userdata: {2}",
                     Environment.OSVersion.Version.Major, gamever, path_userdata);
