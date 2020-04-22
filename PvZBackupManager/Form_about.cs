@@ -75,7 +75,7 @@ namespace PvZBackupManager
 
                 if (ver_now < ver_new)
                 {
-                    string text = string.Format("检测到新版本（{0}），是否前往下载？", ver_new);
+                    string text = string.Format("检测到新版本（v{0}），是否前往下载？", ver_new);
                     if (MessageBox.Show(text, "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
                         Process.Start(url);
