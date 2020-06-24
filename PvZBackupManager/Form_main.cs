@@ -19,6 +19,7 @@ namespace PvZBackupManager
         private readonly StrListFile list;
         private readonly LinkLabel   button_debug;
 
+        private bool   justStartUp;
         private int    gamever;
         private string path_userdata;
 
@@ -54,16 +55,19 @@ namespace PvZBackupManager
 
             #endregion
 
-            /*初始化变量*/
+            justStartUp = true;
+
             conf = new IniFile(PATH_BKDATA + @"\string.bin", "string", "value");
             list = new StrListFile(PATH_BKDATA + @"\list.bin");
             SelectVersion();
 
             #region 此部分代码只在debug下执行
 #if DEBUG
-            button_debug = new LinkLabel();
-            button_debug.Text = "debug";
-            button_debug.AutoSize = true;
+            button_debug = new LinkLabel
+            {
+                Text = "debug",
+                AutoSize = true
+            };
             button_debug.Click += Debug_Click;
             Controls.Add(button_debug);
             void Debug_Click(object sender, EventArgs e)
@@ -90,6 +94,7 @@ namespace PvZBackupManager
 #endif
             #endregion
 
+            justStartUp = false;
         }
 
         private void Form_main_Load(object sender, EventArgs e)
@@ -449,16 +454,48 @@ namespace PvZBackupManager
                     DialogResult dr = new Form_selectVersion().ShowDialog();
                     switch (dr)
                     {
-                        case Form_selectVersion.DIALOGRESULT_ORIGINAL: path_userdata = PATH_PVZUSERDATA_ORIGINAL; gamever=PVZVersion.ORIGINAL; break;
-                        case Form_selectVersion.DIALOGRESULT_STEAM:    path_userdata = PATH_PVZUSERDATA_STEAM;    gamever=PVZVersion.STEAM;    break;
-                        case Form_selectVersion.DIALOGRESULT_ZOO_JP:   path_userdata = PATH_PVZUSERDATA_ZOO_JP;   gamever=PVZVersion.ZOO_JP;   break;
-                        case Form_selectVersion.DIALOGRESULT_NONE:     Close(); break;
+                        case Form_selectVersion.DIALOGRESULT_ORIGINAL:
+                            path_userdata = PATH_PVZUSERDATA_ORIGINAL;
+                            gamever=PVZVersion.ORIGINAL;
+                            break;
+
+                        case Form_selectVersion.DIALOGRESULT_STEAM:
+                            path_userdata = PATH_PVZUSERDATA_STEAM;
+                            gamever=PVZVersion.STEAM;
+                            break;
+
+                        case Form_selectVersion.DIALOGRESULT_ZOO_JP:
+                            path_userdata = PATH_PVZUSERDATA_ZOO_JP;
+                            gamever=PVZVersion.ZOO_JP;
+                            break;
+
+                        case Form_selectVersion.DIALOGRESULT_NONE:
+                            if (justStartUp)
+                            {
+                                Environment.Exit(0);
+                            }
+                            break;
                     }
                     break;
-                case PVZVersion.ORIGINAL: path_userdata = PATH_PVZUSERDATA_ORIGINAL; gamever = PVZVersion.ORIGINAL; break;
-                case PVZVersion.STEAM:    path_userdata = PATH_PVZUSERDATA_STEAM;    gamever = PVZVersion.STEAM;    break;
-                case PVZVersion.ZOO_JP:   path_userdata = PATH_PVZUSERDATA_ZOO_JP;   gamever = PVZVersion.ZOO_JP;   break;
-                case PVZVersion.NONE:     SetPath(); break;
+
+                case PVZVersion.ORIGINAL:
+                    path_userdata = PATH_PVZUSERDATA_ORIGINAL;
+                    gamever = PVZVersion.ORIGINAL;
+                    break;
+
+                case PVZVersion.STEAM:
+                    path_userdata = PATH_PVZUSERDATA_STEAM;
+                    gamever = PVZVersion.STEAM;
+                    break;
+
+                case PVZVersion.ZOO_JP:
+                    path_userdata = PATH_PVZUSERDATA_ZOO_JP;
+                    gamever = PVZVersion.ZOO_JP;
+                    break;
+
+                case PVZVersion.NONE:
+                    SetPath();
+                    break;
             }
             RemoveReadOnly();
         }

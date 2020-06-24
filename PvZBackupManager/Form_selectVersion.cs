@@ -31,6 +31,8 @@ namespace PvZBackupManager
             DialogResult = dr;
         }
 
+#if false
+        //使关闭按钮变灰
         protected override CreateParams CreateParams
         {
             get
@@ -41,6 +43,7 @@ namespace PvZBackupManager
                 return parameters;
             }
         }
+#endif
 
         private void Button_original_Click(object sender, EventArgs e)
         {
