@@ -3,7 +3,7 @@ using System.Text;
 
 namespace PvZBackupManager
 {
-    abstract class DllImports
+    public static class DllImports
     {
 
         [DllImport("kernel32")]

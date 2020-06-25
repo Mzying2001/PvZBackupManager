@@ -1,9 +1,10 @@
 ﻿using System.IO;
 using System.Text;
+using static PvZBackupManager.DllImports;
 
 namespace PvZBackupManager
 {
-    class IniFile : DllImports
+    class IniFile
     {
 
         private string path;
