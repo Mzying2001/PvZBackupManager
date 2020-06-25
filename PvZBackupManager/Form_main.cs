@@ -131,6 +131,44 @@ namespace PvZBackupManager
             Form_main_SizeChanged(null, null);
             Activate();
 
+            #region 恢复上一次关闭时的窗口位置
+
+            int[] ws = new int[4]
+            {
+                conf.GetInteger("WindowState", "x"),
+                conf.GetInteger("WindowState", "y"),
+                conf.GetInteger("WindowState", "w"),
+                conf.GetInteger("WindowState", "h"),
+            };
+            bool available = true;
+            foreach(int tmp in ws)
+            {
+                if (tmp == -1)
+                {
+                    available = false;
+                    break;
+                }
+            }
+            if (available)
+            {
+                if (ws[0] < 0)
+                    ws[0] = 0;
+                else if (ws[0] + ws[2] > Screen.PrimaryScreen.Bounds.Width)
+                    ws[0] = Screen.PrimaryScreen.Bounds.Width - ws[2];
+
+                if (ws[1] < 0)
+                    ws[1] = 0;
+                else if (ws[1] + ws[3] > Screen.PrimaryScreen.Bounds.Height)
+                    ws[1] = Screen.PrimaryScreen.Bounds.Height - ws[3];
+
+                Left   = ws[0];
+                Top    = ws[1];
+                Width  = ws[2];
+                Height = ws[3];
+            }
+
+            #endregion
+
             justStartUp = false;
         }
 
@@ -153,6 +191,19 @@ namespace PvZBackupManager
 
         private void Form_main_FormClosing(object sender, FormClosingEventArgs e)
         {
+
+            #region 保存窗口位置信息
+
+            if (WindowState == FormWindowState.Normal)
+            {
+                conf.WriteValue("WindowState", "x", Left);
+                conf.WriteValue("WindowState", "y", Top);
+                conf.WriteValue("WindowState", "w", Width);
+                conf.WriteValue("WindowState", "h", Height);
+            }
+
+            #endregion
+
             Environment.Exit(0);
         }
 
