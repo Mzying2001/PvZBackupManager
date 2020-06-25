@@ -10,7 +10,7 @@ namespace PvZBackupManager
     {
         
         private const string CONF_TEMP_SECTION = "string";
-        private const string CONF_TEMP_KEY     = "value";
+        private const string CONF_TEMP_KEY     = "tmp_name";
 
         private readonly IniFile     conf;
         private readonly StrListFile list;

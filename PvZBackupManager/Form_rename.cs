@@ -59,7 +59,7 @@ namespace PvZBackupManager
                     else
                     {
                         changed = true;
-                        new IniFile(MyString.Path_BKdata + @"\string.bin")["string", "value"] = textBox_name.Text.Trim();
+                        new IniFile(MyString.Path_conf)["string", "tmp_name"] = textBox_name.Text.Trim();
                         Close();
                     }
                     break;
