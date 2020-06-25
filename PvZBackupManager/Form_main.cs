@@ -15,6 +15,9 @@ namespace PvZBackupManager
         private const string PATH_PVZUSERDATA_STEAM    = MyString.PATH_PVZUSERDATA_STEAM;       //steam版存档路径
         private const string PATH_PVZUSERDATA_ZOO_JP   = MyString.PATH_PVZUSERDATA_ZOO_JP;      //日文版存档路径
 
+        private const string CONF_TEMP_SECTION = "string";
+        private const string CONF_TEMP_KEY     = "value";
+
         private readonly IniFile     conf;
         private readonly StrListFile list;
         private readonly LinkLabel   button_debug;
@@ -27,6 +30,7 @@ namespace PvZBackupManager
         {
             InitializeComponent();
 
+            justStartUp = true;
             Icon = Properties.Resources.icon;
 
             #region 旧系统(xp)下针对旧版本(v1.0.7及以下)的操作
@@ -55,9 +59,7 @@ namespace PvZBackupManager
 
             #endregion
 
-            justStartUp = true;
-
-            conf = new IniFile(PATH_BKDATA + @"\string.bin", "string", "value");
+            conf = new IniFile(PATH_BKDATA + @"\string.bin");
             list = new StrListFile(PATH_BKDATA + @"\list.bin");
             SelectVersion();
 
@@ -94,7 +96,6 @@ namespace PvZBackupManager
 #endif
             #endregion
 
-            justStartUp = false;
         }
 
         private void Form_main_Load(object sender, EventArgs e)
@@ -136,6 +137,7 @@ namespace PvZBackupManager
             Form_main_SizeChanged(null, null);
             Activate();
 
+            justStartUp = false;
         }
 
         private void Form_main_SizeChanged(object sender, EventArgs e)
@@ -172,7 +174,7 @@ namespace PvZBackupManager
             {
                 created = false;
             }
-            else if (list.Contains(conf.Read()))
+            else if (list.Contains(conf[CONF_TEMP_SECTION, CONF_TEMP_SECTION]))
             {
                 created = false;
                 ShowErrorMessage("无法创建,因为命名出现重复");
@@ -182,11 +184,13 @@ namespace PvZBackupManager
 
             if (created)
             {
-                list.Add(conf.Read());
-                Directory.CreateDirectory(PATH_BACKUPS + @"\" + conf.Read());
-                Dir.Copy(path_userdata, PATH_BACKUPS + @"\" + conf.Read() + @"\userdata");
+                string tmp_name = conf[CONF_TEMP_SECTION, CONF_TEMP_KEY];
 
-                listBox_backups.Items.Add(conf.Read());
+                list.Add(tmp_name);
+                Directory.CreateDirectory(PATH_BACKUPS + @"\" + tmp_name);
+                Dir.Copy(path_userdata, PATH_BACKUPS + @"\" + tmp_name + @"\userdata");
+
+                listBox_backups.Items.Add(tmp_name);
                 listBox_backups.SetSelected(listBox_backups.Items.Count - 1, true);
             }
         }
@@ -358,15 +362,19 @@ namespace PvZBackupManager
         private void Rename_Click(object sender, EventArgs e)
         {
             bool changed = true;
+            string tmp_name;
             string SelectedItem = listBox_backups.SelectedItem.ToString();
 
             #region 判断是否重命名
 
-            if (new Form_rename(SelectedItem).ShowDialog() == Form_rename.DIALOGRESULT_NOTHINGCHANGED)
+            DialogResult dr = new Form_rename(SelectedItem).ShowDialog();
+            tmp_name = conf[CONF_TEMP_SECTION, CONF_TEMP_KEY];
+
+            if (dr == Form_rename.DIALOGRESULT_NOTHINGCHANGED)
             {
                 changed = false;
             }
-            else if (list.Contains(conf.Read()))
+            else if (list.Contains(tmp_name))
             {
                 changed = false;
                 ShowErrorMessage("无法重命名,因为存在同名备份");
@@ -376,12 +384,12 @@ namespace PvZBackupManager
 
             if (changed)
             {
-                list.Rename(SelectedItem, conf.Read());
-                Dir.Move(PATH_BACKUPS + @"\" + SelectedItem, PATH_BACKUPS + @"\" + conf.Read());
+                list.Rename(SelectedItem, tmp_name);
+                Dir.Move(PATH_BACKUPS + @"\" + SelectedItem, PATH_BACKUPS + @"\" + tmp_name);
 
                 int index = listBox_backups.SelectedIndex;
                 listBox_backups.Items.RemoveAt(index);
-                listBox_backups.Items.Insert(index, conf.Read());
+                listBox_backups.Items.Insert(index, tmp_name);
                 listBox_backups.SetSelected(index, true);
             }
         }

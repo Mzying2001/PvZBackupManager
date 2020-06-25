@@ -70,8 +70,7 @@ namespace PvZBackupManager
                     break;
 
                 case MyString.IsLegalBackupName_RESULT.LEGAL:
-                    IniFile c = new IniFile(MyString.Path_BKdata + @"\string.bin", "string", "value");
-                    c.Write(name);
+                    new IniFile(MyString.Path_BKdata + @"\string.bin")["string", "value"] = name;
                     created = true;
                     Close();
                     break;

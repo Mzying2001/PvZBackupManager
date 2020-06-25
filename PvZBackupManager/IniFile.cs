@@ -7,27 +7,38 @@ namespace PvZBackupManager
     {
 
         private string path;
-        private string section;
-        private string key;
+        public string Path
+        {
+            get
+            {
+                return path;
+            }
+            set
+            {
+                if (!File.Exists(value))
+                {
+                    File.WriteAllText(value, null);
+                }
+                path = value;
+            }
+        }
+
+        public IniFile(string path)
+        {
+            Path = path;
+        }
 
         /// <summary>
-        /// 向配置文件写入值：
+        /// 向配置文件写入值
         /// </summary>
-        /// <param name="section"></param>
-        /// <param name="key"></param>
-        /// <param name="value"></param>
-        /// <param name="path"></param>
         public static void ProfileWriteValue(string section, string key, string value, string path)
         {
             WritePrivateProfileString(section, key, value, path);
         }
+
         /// <summary>
-        /// 读取配置文件的值：
+        /// 读取配置文件的值
         /// </summary>
-        /// <param name="section"></param>
-        /// <param name="key"></param>
-        /// <param name="path"></param>
-        /// <returns></returns>
         public static string ProfileReadValue(string section, string key, string path)
         {
             StringBuilder sb = new StringBuilder(255);
@@ -35,39 +46,50 @@ namespace PvZBackupManager
             return sb.ToString().Trim();
         }
 
-        public IniFile(string path, string section, string key)
+        public string this[string section,string key]
         {
-            SetPath(path);
-            SetSectionAndKey(section, key);
-            if (!File.Exists(path))
+            get
             {
-                File.WriteAllText(path, null);
+                return ProfileReadValue(section, key, Path);
+            }
+            set
+            {
+                ProfileWriteValue(section, key, value, Path);
             }
         }
-        public void SetPath(string path)
+
+        public void WriteValue(string section, string key, object value)
         {
-            this.path = path;
+            ProfileWriteValue(section, key, value.ToString(), path);
         }
-        public void SetSectionAndKey(string section,string key)
-        {
-            this.section = section;
-            this.key = key;
-        }
-        public string Read()
+
+        public string GetString(string section, string key)
         {
             return ProfileReadValue(section, key, path);
         }
-        public int ReadInt()
+
+        public int GetInteger(string section, string key)
         {
-            return int.Parse(ProfileReadValue(section, key, path));
+            try
+            {
+                return int.Parse(ProfileReadValue(section, key, path));
+            }
+            catch
+            {
+                return -1;
+            }
         }
-        public void Write(string value)
+
+        public bool GetBoolean(string section, string key)
         {
-            ProfileWriteValue(section, key, value, path);
-        }
-        public void WriteInt(int value)
-        {
-            ProfileWriteValue(section, key, value.ToString(), path);
+            try
+            {
+                return bool.Parse(ProfileReadValue(section, key, path));
+            }
+            catch
+            {
+                return false;
+            }
         }
 
     }

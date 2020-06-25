@@ -52,7 +52,6 @@ namespace PvZBackupManager
                     break;
 
                 case MyString.IsLegalBackupName_RESULT.LEGAL:
-                    IniFile c = new IniFile(MyString.Path_BKdata + @"\string.bin", "string", "value");
                     if (name.Equals(OldName))
                     {
                         Close();
@@ -60,7 +59,7 @@ namespace PvZBackupManager
                     else
                     {
                         changed = true;
-                        c.Write(textBox_name.Text.Trim());
+                        new IniFile(MyString.Path_BKdata + @"\string.bin")["string", "value"] = textBox_name.Text.Trim();
                         Close();
                     }
                     break;
