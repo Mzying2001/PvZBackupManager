@@ -2,19 +2,13 @@
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
+using static PvZBackupManager.MyString;
 
 namespace PvZBackupManager
 {
     public partial class Form_main : Form
     {
         
-        private readonly string PATH_BKDATA  = MyString.Path_BKdata;    //存档管理器文档路径
-        private readonly string PATH_BACKUPS = MyString.Path_backups;   //备份文件路径
-
-        private const string PATH_PVZUSERDATA_ORIGINAL = MyString.PATH_PVZUSERDATA_ORIGINAL;    //原版存档路径
-        private const string PATH_PVZUSERDATA_STEAM    = MyString.PATH_PVZUSERDATA_STEAM;       //steam版存档路径
-        private const string PATH_PVZUSERDATA_ZOO_JP   = MyString.PATH_PVZUSERDATA_ZOO_JP;      //日文版存档路径
-
         private const string CONF_TEMP_SECTION = "string";
         private const string CONF_TEMP_KEY     = "value";
 
@@ -38,9 +32,9 @@ namespace PvZBackupManager
             if (Environment.OSVersion.Version.Major < 6)
             {
                 string path_old = @"C:\ProgramData\PvZBackupManager";
-                if (Directory.Exists(path_old) && !Directory.Exists(PATH_BKDATA))
+                if (Directory.Exists(path_old) && !Directory.Exists(Path_BKdata))
                 {
-                    Dir.Move(path_old, PATH_BKDATA);
+                    Dir.Move(path_old, Path_BKdata);
                 }
             }
 
@@ -48,19 +42,19 @@ namespace PvZBackupManager
 
             #region 检测管理器文档路径是否存在，不存在则创建路径
 
-            if (!Directory.Exists(PATH_BKDATA))
+            if (!Directory.Exists(Path_BKdata))
             {
-                Directory.CreateDirectory(PATH_BKDATA);
+                Directory.CreateDirectory(Path_BKdata);
             }
-            if (!Directory.Exists(PATH_BACKUPS))
+            if (!Directory.Exists(Path_backups))
             {
-                Directory.CreateDirectory(PATH_BACKUPS);
+                Directory.CreateDirectory(Path_backups);
             }
 
             #endregion
 
-            conf = new IniFile(PATH_BKDATA + @"\string.bin");
-            list = new StrListFile(PATH_BKDATA + @"\list.bin");
+            conf = new IniFile(Path_conf);
+            list = new StrListFile(Path_list);
             SelectVersion();
 
             #region 此部分代码只在debug下执行
@@ -77,16 +71,16 @@ namespace PvZBackupManager
                 string output = "";
                 output += 
                     string.Format("【文件夹路径】\r\n{0}\r\n{1}\r\n{2}\r\n{3}\r\n{4}\r\n{5}\r\n\r\n",
-                    MyString.Path_AppData,
-                    MyString.Path_BKdata,
-                    MyString.Path_backups,
-                    MyString.PATH_PVZUSERDATA_ORIGINAL,
-                    MyString.PATH_PVZUSERDATA_STEAM,
-                    MyString.PATH_PVZUSERDATA_ZOO_JP
+                    Path_AppData,
+                    Path_BKdata,
+                    Path_backups,
+                    PATH_PVZUSERDATA_ORIGINAL,
+                    PATH_PVZUSERDATA_STEAM,
+                    PATH_PVZUSERDATA_ZOO_JP
                     );
                 output += string.Format("【URL】\r\n{0}\r\n{1}\r\n\r\n",
-                    MyString.URL_VIEWSOURCE,
-                    MyString.URL_UPDATE
+                    URL_VIEWSOURCE,
+                    URL_UPDATE
                     );
                 output +=
                     string.Format("【当前】\r\nOS version (major): {0}\r\ngamever: {1}\r\npath_userdata: {2}",
@@ -105,7 +99,7 @@ namespace PvZBackupManager
 
             for (int i = list.Count - 1; i >= 0; i--)
             {
-                if (Directory.Exists(PATH_BACKUPS + @"\" + list[i]))
+                if (Directory.Exists(Path_backups + @"\" + list[i]))
                 {
                     listBox_backups.Items.Insert(0, list[i]);
                 }
@@ -114,7 +108,7 @@ namespace PvZBackupManager
                     list.RemoveAt(i);
                 }
             }
-            foreach(var tmp in Directory.GetDirectories(PATH_BACKUPS))
+            foreach(var tmp in Directory.GetDirectories(Path_backups))
             {
                 string name = tmp.Substring(tmp.LastIndexOf('\\') + 1);
                 if(!list.Contains(name))
@@ -187,8 +181,8 @@ namespace PvZBackupManager
                 string tmp_name = conf[CONF_TEMP_SECTION, CONF_TEMP_KEY];
 
                 list.Add(tmp_name);
-                Directory.CreateDirectory(PATH_BACKUPS + @"\" + tmp_name);
-                Dir.Copy(path_userdata, PATH_BACKUPS + @"\" + tmp_name + @"\userdata");
+                Directory.CreateDirectory(Path_backups + @"\" + tmp_name);
+                Dir.Copy(path_userdata, Path_backups + @"\" + tmp_name + @"\userdata");
 
                 listBox_backups.Items.Add(tmp_name);
                 listBox_backups.SetSelected(listBox_backups.Items.Count - 1, true);
@@ -207,7 +201,7 @@ namespace PvZBackupManager
                 try
                 {
                     Dir.Delete(path_userdata, true);
-                    Dir.Copy(PATH_BACKUPS + @"\" + SelectedItem + @"\userdata", path_userdata);
+                    Dir.Copy(Path_backups + @"\" + SelectedItem + @"\userdata", path_userdata);
                     MessageBox.Show(string.Format("已恢复到备份\"{0}\"", SelectedItem), "提示");
                 }
                 catch (Exception ex)
@@ -353,7 +347,7 @@ namespace PvZBackupManager
 
             if (MessageBox.Show(text, "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                Dir.Delete(PATH_BACKUPS + @"\" + SelectedItem);
+                Dir.Delete(Path_backups + @"\" + SelectedItem);
                 list.Remove(SelectedItem);
                 listBox_backups.Items.RemoveAt(listBox_backups.SelectedIndex);
             }
@@ -385,7 +379,7 @@ namespace PvZBackupManager
             if (changed)
             {
                 list.Rename(SelectedItem, tmp_name);
-                Dir.Move(PATH_BACKUPS + @"\" + SelectedItem, PATH_BACKUPS + @"\" + tmp_name);
+                Dir.Move(Path_backups + @"\" + SelectedItem, Path_backups + @"\" + tmp_name);
 
                 int index = listBox_backups.SelectedIndex;
                 listBox_backups.Items.RemoveAt(index);
@@ -403,7 +397,7 @@ namespace PvZBackupManager
             };
             if (fbd.ShowDialog() == DialogResult.OK)
             {
-                string source = PATH_BACKUPS + @"\" + SelectedItem;
+                string source = Path_backups + @"\" + SelectedItem;
                 string destination = fbd.SelectedPath + @"\" + SelectedItem;
                 Dir.Copy(source, destination);
                 MessageBox.Show(string.Format("已导出\"{0}\"到\r\n\"{1}\"", SelectedItem, fbd.SelectedPath), "提示");
@@ -519,7 +513,7 @@ namespace PvZBackupManager
                 "当前系统版本过低，您需要手动选择存档路径\r\n\r\n请选择\"userdata\"所在目录" :
                 "找不到游戏存档路径，您需要手动选择存档路径\r\n\r\n请选择\"userdata\"所在目录"
             };
-            string path_xp = MyString.Path_BKdata + @"\xp.bin";
+            string path_xp = Path_BKdata + @"\xp.bin";
             if (File.Exists(path_xp))
             {
                 string tmp = File.ReadAllText(path_xp);
@@ -554,8 +548,8 @@ namespace PvZBackupManager
         /// </summary>
         private void RemoveReadOnly()
         {
-            string bat = MyString.Path_BKdata + @"\attrib.bat";
-            string cmd = string.Format(Properties.Resources.attrib, PATH_BACKUPS, path_userdata);
+            string bat = Path_BKdata + @"\attrib.bat";
+            string cmd = string.Format(Properties.Resources.attrib, Path_backups, path_userdata);
             File.WriteAllText(bat, cmd);
 
             Process proc = new Process();
