@@ -66,7 +66,6 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "重命名";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_rename_FormClosing);
             this.Load += new System.EventHandler(this.Form_rename_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

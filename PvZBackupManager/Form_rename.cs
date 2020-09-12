@@ -6,10 +6,8 @@ namespace PvZBackupManager
     public partial class Form_rename : Form
     {
 
-        public const DialogResult DIALOGRESULT_NOTHINGCHANGED = (DialogResult)1;
-        public const DialogResult DIALOGRESULT_CHANGED = (DialogResult)2;
+        private string dialog_result = null;
 
-        private bool changed = false;
         private readonly string OldName;
 
         public Form_rename(string name)
@@ -17,20 +15,14 @@ namespace PvZBackupManager
             InitializeComponent();
             OldName = name;
             textBox_name.Text = name;
+
+            Text += " \"" + name + "\"";
         }
 
         private void Form_rename_Load(object sender, EventArgs e)
         {
             button_ok.Top     = textBox_name.Top;
             button_ok.Height  = textBox_name.Height;
-        }
-
-        private void Form_rename_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (changed)
-                DialogResult = DIALOGRESULT_CHANGED;
-            else
-                DialogResult = DIALOGRESULT_NOTHINGCHANGED;
         }
 
         private void Button_ok_Click(object sender, EventArgs e)
@@ -58,8 +50,7 @@ namespace PvZBackupManager
                     }
                     else
                     {
-                        changed = true;
-                        new IniFile(MyString.Path_conf)["string", "tmp_name"] = textBox_name.Text.Trim();
+                        dialog_result = name;
                         Close();
                     }
                     break;
@@ -72,5 +63,10 @@ namespace PvZBackupManager
                 Button_ok_Click(null, null);
         }
 
+        public new string ShowDialog()
+        {
+            base.ShowDialog();
+            return dialog_result;
+        }
     }
 }

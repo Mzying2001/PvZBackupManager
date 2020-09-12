@@ -397,35 +397,24 @@ namespace PvZBackupManager
 
         private void Rename_Click(object sender, EventArgs e)
         {
-            bool changed = true;
-            string tmp_name;
             string SelectedItem = listBox_backups.SelectedItem.ToString();
-
-            #region 判断是否重命名
-
-            DialogResult dr = new Form_rename(SelectedItem).ShowDialog();
-            tmp_name = conf[CONF_TEMP_SECTION, CONF_TEMP_KEY];
-
-            if (dr == Form_rename.DIALOGRESULT_NOTHINGCHANGED)
+            string name = new Form_rename(SelectedItem).ShowDialog();
+            
+            if (string.IsNullOrEmpty(name))
             {
-                changed = false;
             }
-            else if (list.Contains(tmp_name))
+            else if (list.Contains(name))
             {
-                changed = false;
                 ShowErrorMessage("无法重命名,因为存在同名备份");
             }
-
-            #endregion
-
-            if (changed)
+            else
             {
-                list.Rename(SelectedItem, tmp_name);
-                Dir.Move(Path_backups + @"\" + SelectedItem, Path_backups + @"\" + tmp_name);
+                list.Rename(SelectedItem, name);
+                Dir.Move(Path_backups + @"\" + SelectedItem, Path_backups + @"\" + name);
 
                 int index = listBox_backups.SelectedIndex;
                 listBox_backups.Items.RemoveAt(index);
-                listBox_backups.Items.Insert(index, tmp_name);
+                listBox_backups.Items.Insert(index, name);
                 listBox_backups.SetSelected(index, true);
             }
         }
