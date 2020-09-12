@@ -6,11 +6,11 @@
 
 ## 屏幕截图
 
-![image](https://github.com/Mzying2001/PvZBackupManager/blob/master/ScreenShots/MainWindow.png)
+![image_MainWindow](https://github.com/Mzying2001/PvZBackupManager/blob/master/ScreenShots/MainWindow.png)
 
-![image](https://github.com/Mzying2001/PvZBackupManager/blob/master/ScreenShots/About.png)
+![image_About](https://github.com/Mzying2001/PvZBackupManager/blob/master/ScreenShots/About.png)
 
-![image](https://github.com/Mzying2001/PvZBackupManager/blob/master/ScreenShots/SelectVersions.png)
+![image_SelectVersion](https://github.com/Mzying2001/PvZBackupManager/blob/master/ScreenShots/SelectVersion.png)
 
 ## 支持版本
 
@@ -20,8 +20,8 @@
 
 ## 更新日志
 
-更新日志详见<a href="https://github.com/Mzying2001/PvZBackupManager/blob/master/PvZBackupManager/Resources/updatelog.txt">这里</a>
+更新日志详见[这里](https://github.com/Mzying2001/PvZBackupManager/blob/master/PvZBackupManager/Resources/updatelog.txt#L1)
 
 ## 早期版本
 
-早期版本详见<a href="https://tieba.baidu.com/p/6507692559">这里</a>
+早期版本详见[这里](https://tieba.baidu.com/p/6507692559)
