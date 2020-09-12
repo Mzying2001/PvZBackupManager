@@ -7,10 +7,7 @@ namespace PvZBackupManager
     public partial class Form_create : Form
     {
 
-        public const DialogResult DIALOGRESULT_NOTHINGCREATED = (DialogResult)1;
-        public const DialogResult DIALOGRESULT_CREATED = (DialogResult)2;
-
-        private bool created = false;
+        private string dialog_result = null;
 
         public Form_create(int gamever)
         {
@@ -43,19 +40,10 @@ namespace PvZBackupManager
             button_ok.Height = textBox_name.Height;
         }
 
-        private void Form_create_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (created)
-                DialogResult = DIALOGRESULT_CREATED;
-            else
-                DialogResult = DIALOGRESULT_NOTHINGCREATED;
-        }
-
         private void Button_ok_Click(object sender, EventArgs e)
         {
             string name = textBox_name.Text.Trim();
-            MyString.IsLegalBackupName_RESULT r = MyString.IsLegalBackupName(name);
-            switch (r)
+            switch (MyString.IsLegalBackupName(name))
             {
                 case MyString.IsLegalBackupName_RESULT.ILLEGAL_EMPTY:
                     MessageBox.Show("请输入备份名", "提示");
@@ -70,8 +58,7 @@ namespace PvZBackupManager
                     break;
 
                 case MyString.IsLegalBackupName_RESULT.LEGAL:
-                    new IniFile(MyString.Path_conf)["string", "tmp_name"] = name;
-                    created = true;
+                    dialog_result = name;
                     Close();
                     break;
             }
@@ -83,5 +70,11 @@ namespace PvZBackupManager
                 Button_ok_Click(null, null);
         }
 
+
+        public new string ShowDialog()
+        {
+            base.ShowDialog();
+            return dialog_result;
+        }
     }
 }

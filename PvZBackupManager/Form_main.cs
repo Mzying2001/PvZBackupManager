@@ -211,31 +211,22 @@ namespace PvZBackupManager
 
         private void Button_create_Click(object sender, EventArgs e)
         {
-            bool created = true;
+            string name = new Form_create(gamever).ShowDialog();
 
-            #region 判断是否创建
-
-            if (new Form_create(gamever).ShowDialog() == Form_create.DIALOGRESULT_NOTHINGCREATED)
+            if (string.IsNullOrEmpty(name))
             {
-                created = false;
             }
-            else if (list.Contains(conf[CONF_TEMP_SECTION, CONF_TEMP_SECTION]))
+            else if (list.Contains(name))
             {
-                created = false;
                 ShowErrorMessage("无法创建,因为命名出现重复");
             }
-
-            #endregion
-
-            if (created)
+            else
             {
-                string tmp_name = conf[CONF_TEMP_SECTION, CONF_TEMP_KEY];
+                list.Add(name);
+                Directory.CreateDirectory(Path_backups + @"\" + name);
+                Dir.Copy(path_userdata, Path_backups + @"\" + name + @"\userdata");
 
-                list.Add(tmp_name);
-                Directory.CreateDirectory(Path_backups + @"\" + tmp_name);
-                Dir.Copy(path_userdata, Path_backups + @"\" + tmp_name + @"\userdata");
-
-                listBox_backups.Items.Add(tmp_name);
+                listBox_backups.Items.Add(name);
                 listBox_backups.SetSelected(listBox_backups.Items.Count - 1, true);
             }
         }
