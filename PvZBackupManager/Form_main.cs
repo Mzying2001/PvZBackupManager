@@ -458,6 +458,7 @@ namespace PvZBackupManager
         {
             label_info.Text = str;
         }
+
         /// <summary>
         /// 交换listbox中的item
         /// </summary>
@@ -476,61 +477,47 @@ namespace PvZBackupManager
                 listBox_backups.Items.Insert(j, name1);
             }
         }
+
         /// <summary>
         /// 选择游戏版本
         /// </summary>
         private void SelectVersion()
         {
-            switch (PVZVersion.Check())
+            int ver_tmp = PVZVersion.Check();
+
+            if (ver_tmp == PVZVersion.NONE)
             {
-                case PVZVersion.VAR:
-                    switch (new Form_selectVersion().ShowDialog())
-                    {
-                        case PVZVersion.ORIGINAL:
-                            path_userdata = PATH_PVZUSERDATA_ORIGINAL;
-                            gamever=PVZVersion.ORIGINAL;
-                            break;
+                SetPath();
+                return;
+            }
 
-                        case PVZVersion.STEAM:
-                            path_userdata = PATH_PVZUSERDATA_STEAM;
-                            gamever=PVZVersion.STEAM;
-                            break;
+            ver_tmp = (ver_tmp == PVZVersion.VAR) ? new Form_selectVersion().ShowDialog() : ver_tmp;
 
-                        case PVZVersion.ZOO_JP:
-                            path_userdata = PATH_PVZUSERDATA_ZOO_JP;
-                            gamever=PVZVersion.ZOO_JP;
-                            break;
-
-                        case PVZVersion.NONE:
-                            if (justStartUp)
-                            {
-                                Environment.Exit(0);
-                            }
-                            break;
-                    }
-                    break;
-
+            switch (ver_tmp)
+            {
                 case PVZVersion.ORIGINAL:
                     path_userdata = PATH_PVZUSERDATA_ORIGINAL;
-                    gamever = PVZVersion.ORIGINAL;
                     break;
 
                 case PVZVersion.STEAM:
                     path_userdata = PATH_PVZUSERDATA_STEAM;
-                    gamever = PVZVersion.STEAM;
                     break;
 
                 case PVZVersion.ZOO_JP:
                     path_userdata = PATH_PVZUSERDATA_ZOO_JP;
-                    gamever = PVZVersion.ZOO_JP;
                     break;
 
                 case PVZVersion.NONE:
-                    SetPath();
+                    if (justStartUp)
+                    {
+                        Environment.Exit(0);
+                    }
                     break;
             }
+            gamever = ver_tmp;
             RemoveReadOnly();
         }
+
         /// <summary>
         /// 找不到默认存档路径时手动选择存档路径
         /// </summary>
@@ -567,12 +554,14 @@ namespace PvZBackupManager
                     ShowErrorMessage(string.Format("找不到路径\"{0}\"", path_userdata));
                     Environment.Exit(0);
                 }
+                RemoveReadOnly();
             }
             else
             {
                 Environment.Exit(0);
             }
         }
+
         /// <summary>
         /// 去除存档的只读属性
         /// </summary>
@@ -588,6 +577,7 @@ namespace PvZBackupManager
             proc.Start();
             proc.WaitForExit();
         }
+
         /// <summary>
         /// 弹窗显示错误信息
         /// </summary>
@@ -595,14 +585,12 @@ namespace PvZBackupManager
         private void ShowErrorMessage(string message)
         {
             MessageBox.Show(
+                this,
                 message,
                 "错误",
                 MessageBoxButtons.OK,
-                MessageBoxIcon.Error,
-                MessageBoxDefaultButton.Button1,
-                MessageBoxOptions.DefaultDesktopOnly
+                MessageBoxIcon.Error
                 );
-            Activate();
         }
 
     }
