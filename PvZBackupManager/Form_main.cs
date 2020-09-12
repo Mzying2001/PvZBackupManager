@@ -9,9 +9,6 @@ namespace PvZBackupManager
     public partial class Form_main : Form
     {
         
-        private const string CONF_TEMP_SECTION = "string";
-        private const string CONF_TEMP_KEY     = "tmp_name";
-
         private readonly IniFile     conf;
         private readonly StrListFile list;
         private readonly LinkLabel   button_debug;
@@ -514,7 +511,7 @@ namespace PvZBackupManager
                     }
                     break;
             }
-            gamever = ver_tmp;
+            gamever = (ver_tmp == PVZVersion.NONE) ? gamever : ver_tmp;
             RemoveReadOnly();
         }
 
