@@ -30,13 +30,15 @@ namespace PvZBackupManager
             label_title.Left     = pictureBox_icon.Left + pictureBox_icon.Width;
             label_info.Top       = label_title.Top + label_title.Height;
             label_info.Left      = label_title.Left + (label_title.Width - label_info.Width) / 2;
+
+            linkLabel_update.Enabled = !(Environment.OSVersion.Version.Major < 6);
         }
 
         private void Form_about_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (update != null)
+            if (update != null && update.IsAlive)
             {
-                update.Abort();
+                e.Cancel = true;
             }
         }
 
@@ -63,7 +65,6 @@ namespace PvZBackupManager
 
         #region 检查更新
 
-        private delegate void GetUpdateDelegate(string message);
         private void GetUpdate(string message)
         {
             try
@@ -106,12 +107,19 @@ namespace PvZBackupManager
                 ServicePointManager.SecurityProtocol = (SecurityProtocolType)192 | (SecurityProtocolType)768 | (SecurityProtocolType)3072;
                 string message = new WebClient().DownloadString(MyString.URL_UPDATE);
 
-                GetUpdateDelegate threadEnd = new GetUpdateDelegate(GetUpdate);
-                Invoke(threadEnd, message);
+                Invoke(new Action(() => GetUpdate(message)));
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "错误");
+                Invoke(new Action(() =>
+                {
+                    MessageBox.Show(ex.Message, "错误");
+
+                    linkLabel_update.Visible = true;
+                    linkLabel_updatelog.Visible = true;
+                    linkLabel_viewSource.Enabled = true;
+                    linkLabel_viewSource.Text = "查看源码";
+                }));
             }
         }
 

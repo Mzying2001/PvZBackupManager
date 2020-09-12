@@ -327,7 +327,7 @@ namespace PvZBackupManager
 
                 case PVZVersion.XPMODE:
                     tmp = string.Format("正在使用\"{0}\"", path_userdata);
-                    contextMenuStrip_options.Items["currentgamever"].Enabled = false;
+                    currentgamever.Enabled = false;
                     break;
             }
             currentgamever.Text = tmp;
