@@ -482,7 +482,10 @@ namespace PvZBackupManager
         /// </summary>
         private void SelectVersion()
         {
-            int ver_tmp = PVZVersion.Check();
+            int ver_tmp;
+
+            ver_tmp = conf.GetInteger("var", "gamever");
+            ver_tmp = (PVZVersion.Exists(ver_tmp) && justStartUp) ? ver_tmp : PVZVersion.Check();
 
             if (ver_tmp == PVZVersion.NONE)
             {

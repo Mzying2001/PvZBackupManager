@@ -9,6 +9,8 @@ namespace PvZBackupManager
 
         private int dialog_result = PVZVersion.NONE;
 
+        private readonly IniFile conf = new IniFile(MyString.Path_conf);
+
         public Form_selectVersion()
         {
             InitializeComponent();
@@ -19,6 +21,8 @@ namespace PvZBackupManager
             button_original.Enabled = Directory.Exists(MyString.PATH_PVZUSERDATA_ORIGINAL);
             button_steam.Enabled    = Directory.Exists(MyString.PATH_PVZUSERDATA_STEAM);
             button_zoo_jp.Enabled   = Directory.Exists(MyString.PATH_PVZUSERDATA_ZOO_JP);
+
+            checkBox_remember.Checked = !string.IsNullOrEmpty(conf["var", "gamever"]);
         }
 
 #if false
@@ -51,6 +55,21 @@ namespace PvZBackupManager
         {
             dialog_result = PVZVersion.ZOO_JP;
             Close();
+        }
+
+        private void Form_selectVersion_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (dialog_result != PVZVersion.NONE)
+            {
+                if (checkBox_remember.Checked)
+                {
+                    conf.WriteValue("var", "gamever", dialog_result);
+                }
+                else
+                {
+                    conf["var", "gamever"] = null;
+                }
+            }
         }
 
         public new int ShowDialog()

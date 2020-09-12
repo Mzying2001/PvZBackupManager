@@ -32,6 +32,7 @@
             this.button_original = new System.Windows.Forms.Button();
             this.button_steam = new System.Windows.Forms.Button();
             this.button_zoo_jp = new System.Windows.Forms.Button();
+            this.checkBox_remember = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label_info
@@ -72,11 +73,22 @@
             this.button_zoo_jp.UseVisualStyleBackColor = true;
             this.button_zoo_jp.Click += new System.EventHandler(this.Button_zoo_jp_Click);
             // 
+            // checkBox_remember
+            // 
+            this.checkBox_remember.AutoSize = true;
+            this.checkBox_remember.Location = new System.Drawing.Point(15, 77);
+            this.checkBox_remember.Name = "checkBox_remember";
+            this.checkBox_remember.Size = new System.Drawing.Size(75, 21);
+            this.checkBox_remember.TabIndex = 4;
+            this.checkBox_remember.Text = "记住选择";
+            this.checkBox_remember.UseVisualStyleBackColor = true;
+            // 
             // Form_selectVersion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 111);
+            this.Controls.Add(this.checkBox_remember);
             this.Controls.Add(this.button_zoo_jp);
             this.Controls.Add(this.button_steam);
             this.Controls.Add(this.button_original);
@@ -91,8 +103,10 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "选择版本";
             this.TopMost = true;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_selectVersion_FormClosing);
             this.Load += new System.EventHandler(this.Form_SelectVersion_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -102,5 +116,6 @@
         private System.Windows.Forms.Button button_original;
         private System.Windows.Forms.Button button_steam;
         private System.Windows.Forms.Button button_zoo_jp;
+        private System.Windows.Forms.CheckBox checkBox_remember;
     }
 }
