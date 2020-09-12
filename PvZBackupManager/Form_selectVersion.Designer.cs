@@ -91,7 +91,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "选择版本";
             this.TopMost = true;
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_SelectVersion_FormClosing);
             this.Load += new System.EventHandler(this.Form_SelectVersion_Load);
             this.ResumeLayout(false);
 

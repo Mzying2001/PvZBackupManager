@@ -504,25 +504,24 @@ namespace PvZBackupManager
             switch (PVZVersion.Check())
             {
                 case PVZVersion.VAR:
-                    DialogResult dr = new Form_selectVersion().ShowDialog();
-                    switch (dr)
+                    switch (new Form_selectVersion().ShowDialog())
                     {
-                        case Form_selectVersion.DIALOGRESULT_ORIGINAL:
+                        case PVZVersion.ORIGINAL:
                             path_userdata = PATH_PVZUSERDATA_ORIGINAL;
                             gamever=PVZVersion.ORIGINAL;
                             break;
 
-                        case Form_selectVersion.DIALOGRESULT_STEAM:
+                        case PVZVersion.STEAM:
                             path_userdata = PATH_PVZUSERDATA_STEAM;
                             gamever=PVZVersion.STEAM;
                             break;
 
-                        case Form_selectVersion.DIALOGRESULT_ZOO_JP:
+                        case PVZVersion.ZOO_JP:
                             path_userdata = PATH_PVZUSERDATA_ZOO_JP;
                             gamever=PVZVersion.ZOO_JP;
                             break;
 
-                        case Form_selectVersion.DIALOGRESULT_NONE:
+                        case PVZVersion.NONE:
                             if (justStartUp)
                             {
                                 Environment.Exit(0);

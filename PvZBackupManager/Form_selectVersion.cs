@@ -7,12 +7,7 @@ namespace PvZBackupManager
     public partial class Form_selectVersion : Form
     {
 
-        public const DialogResult DIALOGRESULT_ORIGINAL = (DialogResult)PVZVersion.ORIGINAL;
-        public const DialogResult DIALOGRESULT_STEAM    = (DialogResult)PVZVersion.STEAM;
-        public const DialogResult DIALOGRESULT_ZOO_JP   = (DialogResult)PVZVersion.ZOO_JP;
-        public const DialogResult DIALOGRESULT_NONE     = (DialogResult)PVZVersion.NONE;
-
-        private DialogResult dr = DIALOGRESULT_NONE;
+        private int dialog_result = PVZVersion.NONE;
 
         public Form_selectVersion()
         {
@@ -24,11 +19,6 @@ namespace PvZBackupManager
             button_original.Enabled = Directory.Exists(MyString.PATH_PVZUSERDATA_ORIGINAL);
             button_steam.Enabled    = Directory.Exists(MyString.PATH_PVZUSERDATA_STEAM);
             button_zoo_jp.Enabled   = Directory.Exists(MyString.PATH_PVZUSERDATA_ZOO_JP);
-        }
-
-        private void Form_SelectVersion_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            DialogResult = dr;
         }
 
 #if false
@@ -47,20 +37,26 @@ namespace PvZBackupManager
 
         private void Button_original_Click(object sender, EventArgs e)
         {
-            dr = DIALOGRESULT_ORIGINAL;
+            dialog_result = PVZVersion.ORIGINAL;
             Close();
         }
 
         private void Button_steam_Click(object sender, EventArgs e)
         {
-            dr = DIALOGRESULT_STEAM;
+            dialog_result = PVZVersion.STEAM;
             Close();
         }
 
         private void Button_zoo_jp_Click(object sender, EventArgs e)
         {
-            dr = DIALOGRESULT_ZOO_JP;
+            dialog_result = PVZVersion.ZOO_JP;
             Close();
+        }
+
+        public new int ShowDialog()
+        {
+            base.ShowDialog();
+            return dialog_result;
         }
     }
 }
