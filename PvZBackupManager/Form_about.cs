@@ -139,6 +139,7 @@ namespace PvZBackupManager
             Width    = 450;
             Height   = 500;
             ShowIcon = false;
+            TopMost  = true;
             Text     = title;
 
             MaximizeBox   = false;

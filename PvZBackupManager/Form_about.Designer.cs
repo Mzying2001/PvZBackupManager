@@ -120,6 +120,7 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "关于";
+            this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_about_FormClosing);
             this.Load += new System.EventHandler(this.Form_about_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_icon)).EndInit();

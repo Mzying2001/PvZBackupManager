@@ -51,6 +51,8 @@
             this.opendir = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.about = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.topmost = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip_listbox.SuspendLayout();
             this.contextMenuStrip_options.SuspendLayout();
             this.SuspendLayout();
@@ -204,35 +206,49 @@
             this.currentgamever,
             this.opendir,
             this.toolStripSeparator1,
+            this.topmost,
+            this.toolStripSeparator2,
             this.about});
             this.contextMenuStrip_options.Name = "contextMenuStrip_options";
-            this.contextMenuStrip_options.Size = new System.Drawing.Size(173, 76);
+            this.contextMenuStrip_options.Size = new System.Drawing.Size(181, 126);
             // 
             // currentgamever
             // 
             this.currentgamever.Name = "currentgamever";
-            this.currentgamever.Size = new System.Drawing.Size(172, 22);
+            this.currentgamever.Size = new System.Drawing.Size(180, 22);
             this.currentgamever.Text = "currentgamever";
             this.currentgamever.Click += new System.EventHandler(this.Changegamever);
             // 
             // opendir
             // 
             this.opendir.Name = "opendir";
-            this.opendir.Size = new System.Drawing.Size(172, 22);
+            this.opendir.Size = new System.Drawing.Size(180, 22);
             this.opendir.Text = "打开游戏存档目录";
             this.opendir.Click += new System.EventHandler(this.Opendir_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(169, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // about
             // 
             this.about.Name = "about";
-            this.about.Size = new System.Drawing.Size(172, 22);
+            this.about.Size = new System.Drawing.Size(180, 22);
             this.about.Text = "关于";
             this.about.Click += new System.EventHandler(this.About_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            // 
+            // topmost
+            // 
+            this.topmost.Name = "topmost";
+            this.topmost.Size = new System.Drawing.Size(180, 22);
+            this.topmost.Text = "窗口顶置";
+            this.topmost.Click += new System.EventHandler(this.Topmost_Click);
             // 
             // Form_main
             // 
@@ -284,6 +300,8 @@
         private System.Windows.Forms.ToolStripMenuItem about;
         private System.Windows.Forms.ToolStripMenuItem opendir;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem topmost;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }
 

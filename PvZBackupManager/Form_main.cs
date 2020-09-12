@@ -13,15 +13,13 @@ namespace PvZBackupManager
         private readonly StrListFile list;
         private readonly LinkLabel   button_debug;
 
-        private bool   justStartUp;
+        private bool   justStartUp = true;
         private int    gamever;
         private string path_userdata;
 
         public Form_main()
         {
             InitializeComponent();
-
-            justStartUp = true;
             Icon = Properties.Resources.icon;
 
             #region 旧系统(xp)下针对旧版本(v1.0.7及以下)的操作
@@ -166,6 +164,8 @@ namespace PvZBackupManager
 
             #endregion
 
+            TopMost = conf.GetBoolean("var", "TopMost");
+
             justStartUp = false;
         }
 
@@ -188,9 +188,6 @@ namespace PvZBackupManager
 
         private void Form_main_FormClosing(object sender, FormClosingEventArgs e)
         {
-
-            #region 保存窗口位置信息
-
             if (WindowState == FormWindowState.Normal)
             {
                 conf.WriteValue("WindowState", "x", Left);
@@ -198,9 +195,7 @@ namespace PvZBackupManager
                 conf.WriteValue("WindowState", "w", Width);
                 conf.WriteValue("WindowState", "h", Height);
             }
-
-            #endregion
-
+            conf.WriteValue("var", "TopMost", TopMost);
             Environment.Exit(0);
         }
 
@@ -256,6 +251,7 @@ namespace PvZBackupManager
         private void ListBox_backups_SelectedIndexChanged(object sender, EventArgs e)
         {
             SetBottomText(string.Format("已备份存档{0}个", listBox_backups.Items.Count));
+
             if (listBox_backups.SelectedIndex >= 0)
                 button_restore.Enabled = true;
             else
@@ -270,33 +266,33 @@ namespace PvZBackupManager
                 listBox_backups.SetSelected(index, true);
                 if (listBox_backups.Items.Count == 1)
                 {
-                    contextMenuStrip_listbox.Items["Up"].Enabled = false;
-                    contextMenuStrip_listbox.Items["Down"].Enabled = false;
-                    contextMenuStrip_listbox.Items["ToTop"].Enabled = false;
-                    contextMenuStrip_listbox.Items["ToBottom"].Enabled = false;
+                    up.Enabled = false;
+                    down.Enabled = false;
+                    totop.Enabled = false;
+                    tobottom.Enabled = false;
                 }
                 else
                 {
                     if (index == 0)
                     {
-                        contextMenuStrip_listbox.Items["Up"].Enabled = false;
-                        contextMenuStrip_listbox.Items["Down"].Enabled = true;
-                        contextMenuStrip_listbox.Items["ToTop"].Enabled = false;
-                        contextMenuStrip_listbox.Items["ToBottom"].Enabled = true;
+                        up.Enabled = false;
+                        down.Enabled = true;
+                        totop.Enabled = false;
+                        tobottom.Enabled = true;
                     }
                     else if (index == listBox_backups.Items.Count - 1)
                     {
-                        contextMenuStrip_listbox.Items["Up"].Enabled = true;
-                        contextMenuStrip_listbox.Items["Down"].Enabled = false;
-                        contextMenuStrip_listbox.Items["ToTop"].Enabled = true;
-                        contextMenuStrip_listbox.Items["ToBottom"].Enabled = false;
+                        up.Enabled = true;
+                        down.Enabled = false;
+                        totop.Enabled = true;
+                        tobottom.Enabled = false;
                     }
                     else
                     {
-                        contextMenuStrip_listbox.Items["Up"].Enabled = true;
-                        contextMenuStrip_listbox.Items["Down"].Enabled = true;
-                        contextMenuStrip_listbox.Items["ToTop"].Enabled = true;
-                        contextMenuStrip_listbox.Items["ToBottom"].Enabled = true;
+                        up.Enabled = true;
+                        down.Enabled = true;
+                        totop.Enabled = true;
+                        tobottom.Enabled = true;
                     }
                 }
                 listBox_backups.SetSelected(index, true);
@@ -334,7 +330,8 @@ namespace PvZBackupManager
                     contextMenuStrip_options.Items["currentgamever"].Enabled = false;
                     break;
             }
-            contextMenuStrip_options.Items["currentgamever"].Text = tmp;
+            currentgamever.Text = tmp;
+            topmost.Checked = TopMost;
             contextMenuStrip_options.Show(MousePosition);
         }
 
@@ -440,6 +437,11 @@ namespace PvZBackupManager
         private void Opendir_Click(object sender, EventArgs e)
         {
             Process.Start(path_userdata);
+        }
+
+        private void Topmost_Click(object sender, EventArgs e)
+        {
+            TopMost = !TopMost;
         }
 
         private void About_Click(object sender, EventArgs e)
@@ -589,6 +591,5 @@ namespace PvZBackupManager
                 MessageBoxIcon.Error
                 );
         }
-
     }
 }
