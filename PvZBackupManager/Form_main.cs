@@ -75,9 +75,7 @@ namespace PvZBackupManager
 
                 output +=
                     string.Format("【URL】\n{0}\n{1}\n\n",
-                    URL_VIEWSOURCE,
-                    URL_UPDATE
-                    );
+                    URL_VIEWSOURCE, URL_UPDATE);
 
                 output +=
                     string.Format("【当前】\nOS version (major): {0}\ngamever: {1}\npath_userdata: {2}",
@@ -230,6 +228,7 @@ namespace PvZBackupManager
         private void Button_restore_Click(object sender, EventArgs e)
         {
             string SelectedItem = listBox_backups.SelectedItem.ToString();
+
             string text;
             text = "确定要恢复备份\"{0}\"吗?\r\n此操作会覆盖当前存档";
             text = string.Format(text, SelectedItem);
@@ -430,7 +429,7 @@ namespace PvZBackupManager
             }
         }
 
-        private void Changegamever(object sender, EventArgs e)
+        private void Changegamever_Click(object sender, EventArgs e)
         {
             SelectVersion();
         }

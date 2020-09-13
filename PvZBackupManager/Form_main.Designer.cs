@@ -217,7 +217,7 @@
             this.currentgamever.Name = "currentgamever";
             this.currentgamever.Size = new System.Drawing.Size(180, 22);
             this.currentgamever.Text = "currentgamever";
-            this.currentgamever.Click += new System.EventHandler(this.Changegamever);
+            this.currentgamever.Click += new System.EventHandler(this.Changegamever_Click);
             // 
             // opendir
             // 

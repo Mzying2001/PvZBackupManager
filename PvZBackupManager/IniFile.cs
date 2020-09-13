@@ -7,22 +7,9 @@ namespace PvZBackupManager
     class IniFile
     {
 
-        private string path;
-        public string Path
-        {
-            get
-            {
-                return path;
-            }
-            set
-            {
-                if (!File.Exists(value))
-                {
-                    File.WriteAllText(value, null);
-                }
-                path = value;
-            }
-        }
+        public string Path;
+
+        public bool Exists => File.Exists(Path);
 
         public IniFile(string path)
         {
@@ -49,31 +36,25 @@ namespace PvZBackupManager
 
         public string this[string section,string key]
         {
-            get
-            {
-                return ProfileReadValue(section, key, Path);
-            }
-            set
-            {
-                ProfileWriteValue(section, key, value, Path);
-            }
+            get => ProfileReadValue(section, key, Path);
+            set => ProfileWriteValue(section, key, value, Path);
         }
 
         public void WriteValue(string section, string key, object value)
         {
-            ProfileWriteValue(section, key, value.ToString(), path);
+            this[section, key] = value.ToString();
         }
 
         public string GetString(string section, string key)
         {
-            return ProfileReadValue(section, key, path);
+            return this[section, key];
         }
 
         public int GetInteger(string section, string key)
         {
             try
             {
-                return int.Parse(ProfileReadValue(section, key, path));
+                return int.Parse(this[section, key]);
             }
             catch
             {
@@ -85,7 +66,7 @@ namespace PvZBackupManager
         {
             try
             {
-                return bool.Parse(ProfileReadValue(section, key, path));
+                return bool.Parse(this[section, key]);
             }
             catch
             {
