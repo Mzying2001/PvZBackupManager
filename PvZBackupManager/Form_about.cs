@@ -136,9 +136,9 @@ namespace PvZBackupManager
             Visible     = true,
             Multiline   = true,
             ReadOnly    = true,
-            WordWrap    = false,
+            WordWrap    = true,
             BackColor   = Color.White,
-            ScrollBars  = ScrollBars.Both,
+            ScrollBars  = ScrollBars.Vertical,
             BorderStyle = BorderStyle.None,
             Font        = new Font(new FontFamily("黑体"), 10, FontStyle.Regular),
         };
@@ -154,19 +154,22 @@ namespace PvZBackupManager
             MinimizeBox   = false;
             StartPosition = FormStartPosition.CenterParent;
 
-            tb.Text   = message;
+            foreach (var tmp in message.Split('\n'))
+            {
+                tb.Text += string.Format(" {0}\n", tmp);
+            }
+
             tb.Width  = ClientSize.Width;
             tb.Height = ClientSize.Height;
             tb.Select(0, 0);
             tb.ScrollToCaret();
 
             Controls.Add(tb);
-            SizeChanged += WindowSizeChange;
-        }
-        private void WindowSizeChange(object sender, EventArgs e)
-        {
-            tb.Width  = ClientSize.Width;
-            tb.Height = ClientSize.Height;
+            SizeChanged += new EventHandler((object sender, EventArgs e) =>
+            {
+                tb.Width  = ClientSize.Width;
+                tb.Height = ClientSize.Height;
+            });
         }
     }
 
