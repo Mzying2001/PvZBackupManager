@@ -28,27 +28,30 @@ namespace PvZBackupManager
         }
         public static IsLegalBackupName_RESULT IsLegalBackupName(string str)
         {
-            string tmp = str.Trim();
-
-            if (tmp.Length == 0)
+            if (string.IsNullOrEmpty(str))
             {
                 return IsLegalBackupName_RESULT.ILLEGAL_EMPTY;
             }
-            else if (tmp.Length > 100)
-            {
-                return IsLegalBackupName_RESULT.ILLEGAL_LENGHT;
-            }
             else
             {
-                char[] illegalchars = { '\\', '/', ':', '*', '?', '\"', '<', '>', '|' };
-                foreach (char c in illegalchars)
+                string tmp = str.Trim();
+
+                if (tmp.Length > 100)
                 {
-                    if (str.Contains(c))
-                    {
-                        return IsLegalBackupName_RESULT.ILLEGAL_CHAR;
-                    }
+                    return IsLegalBackupName_RESULT.ILLEGAL_LENGHT;
                 }
-                return IsLegalBackupName_RESULT.LEGAL;
+                else
+                {
+                    char[] illegalchars = { '\\', '/', ':', '*', '?', '\"', '<', '>', '|' };
+                    foreach (char c in illegalchars)
+                    {
+                        if (str.Contains(c))
+                        {
+                            return IsLegalBackupName_RESULT.ILLEGAL_CHAR;
+                        }
+                    }
+                    return IsLegalBackupName_RESULT.LEGAL;
+                }
             }
         }
 
