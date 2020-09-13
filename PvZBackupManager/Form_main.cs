@@ -52,12 +52,14 @@ namespace PvZBackupManager
             list = new StrListFile(Path_list);
             SelectVersion();
 
-            #region 此部分代码只在debug下执行
+            #region 添加DEBUG按钮（此部分代码只在debug下执行）
 #if DEBUG
             button_debug = new LinkLabel
             {
-                Text = "debug",
-                AutoSize = true
+                Text = "DEBUG",
+                AutoSize = true,
+                Left = 154,
+                Top = 19
             };
             button_debug.Click += new EventHandler((object sender, EventArgs e) =>
             {
@@ -178,14 +180,6 @@ namespace PvZBackupManager
             label_info.Top         = listBox_backups.Top + listBox_backups.Height + 2;
             linkLabel_options.Top  = label_info.Top;
             linkLabel_options.Left = listBox_backups.Left + listBox_backups.Width - linkLabel_options.Width;
-
-            #region 调整debug按钮
-#if DEBUG
-            button_debug.Left = linkLabel_options.Left - button_debug.Width - 6;
-            button_debug.Top  = linkLabel_options.Top;
-#endif
-            #endregion
-
         }
 
         private void Form_main_FormClosing(object sender, FormClosingEventArgs e)
