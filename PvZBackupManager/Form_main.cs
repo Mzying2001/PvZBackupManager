@@ -224,7 +224,7 @@ namespace PvZBackupManager
             string SelectedItem = listBox_backups.SelectedItem.ToString();
 
             string text;
-            text = "确定要恢复备份\"{0}\"吗?\r\n此操作会覆盖当前存档";
+            text = "确定要恢复备份\"{0}\"吗?\n此操作会覆盖当前存档";
             text = string.Format(text, SelectedItem);
 
             if (MessageBox.Show(text, "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -237,10 +237,7 @@ namespace PvZBackupManager
                 }
                 catch (Exception ex)
                 {
-                    string errormsg;
-                    errormsg = "无法恢复备份，若多次出现此错误，请尝试关闭游戏后重试。\r\n错误信息：{0}";
-                    errormsg = string.Format(errormsg, ex.Message);
-                    ShowErrorMessage(errormsg);
+                    ShowErrorMessage(string.Format("无法恢复备份，若多次出现此错误，请尝试关闭游戏后重试。\n\n{0}", ex));
                 }
             }
         }
@@ -372,7 +369,7 @@ namespace PvZBackupManager
             string SelectedItem = listBox_backups.SelectedItem.ToString();
 
             string text;
-            text = "确定要删除备份\"{0}\"吗?\r\n此操作不可恢复";
+            text = "确定要删除备份\"{0}\"吗?\n此操作不可恢复";
             text = string.Format(text, SelectedItem);
 
             if (MessageBox.Show(text, "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -412,14 +409,14 @@ namespace PvZBackupManager
             string SelectedItem = listBox_backups.SelectedItem.ToString();
             FolderBrowserDialog fbd = new FolderBrowserDialog
             {
-                Description = string.Format("导出备份\"{0}\"\r\n\r\n请选择导出目录", SelectedItem)
+                Description = string.Format("导出备份\"{0}\"\n\n请选择导出目录", SelectedItem)
             };
             if (fbd.ShowDialog() == DialogResult.OK)
             {
                 string source = Path_backups + @"\" + SelectedItem;
                 string destination = fbd.SelectedPath + @"\" + SelectedItem;
                 Dir.Copy(source, destination);
-                MessageBox.Show(string.Format("已导出\"{0}\"到\r\n\"{1}\"", SelectedItem, fbd.SelectedPath), "提示");
+                MessageBox.Show(string.Format("已导出\"{0}\"到\n\"{1}\"", SelectedItem, fbd.SelectedPath), "提示");
             }
         }
 
@@ -526,8 +523,8 @@ namespace PvZBackupManager
                 SelectedPath = conf["Path", "xp"],
 
                 Description = Environment.OSVersion.Version.Major < 6 ?
-                "当前系统版本过低，您需要手动选择存档路径\r\n\r\n请选择\"userdata\"所在目录" :
-                "找不到游戏存档路径，您需要手动选择存档路径\r\n\r\n请选择\"userdata\"所在目录"
+                "当前系统版本过低，您需要手动选择存档路径\n\n请选择\"userdata\"所在目录" :
+                "找不到游戏存档路径，您需要手动选择存档路径\n\n请选择\"userdata\"所在目录"
             };
 
             if (fbd.ShowDialog() == DialogResult.OK)

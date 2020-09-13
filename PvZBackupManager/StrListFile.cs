@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.RegularExpressions;
 
 namespace PvZBackupManager
 {
@@ -12,10 +11,8 @@ namespace PvZBackupManager
 
         public new string this[int index]
         {
-            get
-            {
-                return base[index];
-            }
+            get => base[index];
+
             private set
             {
                 base[index] = value;
@@ -29,7 +26,7 @@ namespace PvZBackupManager
             {
                 File.WriteAllText(path, null);
             }
-            foreach(var tmp in Regex.Split(File.ReadAllText(path), "\r\n"))
+            foreach (var tmp in File.ReadAllText(path).Split('\n'))
             {
                 string str = tmp.Trim();
                 if (str.Length != 0)
@@ -56,19 +53,19 @@ namespace PvZBackupManager
         /// </summary>
         public void Save()
         {
-            string str = "";
+            string str = string.Empty;
+
             foreach(var tmp in this)
             {
-                str += tmp + "\r\n";
+                str += tmp + "\n";
             }
-            str = str.Trim();
-            File.WriteAllText(path, str);
+
+            File.WriteAllText(path, str.Trim());
         }
 
         /// <summary>
         /// 加入字符串
         /// </summary>
-        /// <param name="item"></param>
         public new void Add(string item)
         {
             item = item.Trim();
@@ -92,9 +89,7 @@ namespace PvZBackupManager
         /// <summary>
         /// 重命名相应字符串
         /// </summary>
-        /// <param name="item"></param>
-        /// <param name="newname"></param>
-        public void Rename(string item,string newname)
+        public void Rename(string item, string newname)
         {
             this[IndexOf(item)] = newname;
         }
@@ -102,7 +97,6 @@ namespace PvZBackupManager
         /// <summary>
         /// 上移
         /// </summary>
-        /// <param name="item"></param>
         public void Up(string item)
         {
             int index = IndexOf(item);
@@ -123,7 +117,6 @@ namespace PvZBackupManager
         /// <summary>
         /// 下移
         /// </summary>
-        /// <param name="item"></param>
         public void Down(string item)
         {
             int index = IndexOf(item);
@@ -144,7 +137,6 @@ namespace PvZBackupManager
         /// <summary>
         /// 移到最前
         /// </summary>
-        /// <param name="item"></param>
         public void ToTop(string item)
         {
             int index = IndexOf(item);
@@ -165,7 +157,6 @@ namespace PvZBackupManager
         /// <summary>
         /// 移到最后
         /// </summary>
-        /// <param name="item"></param>
         public void ToBottom(string item)
         {
             int index = IndexOf(item);

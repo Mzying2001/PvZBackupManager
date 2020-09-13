@@ -54,7 +54,7 @@ namespace PvZBackupManager
                     break;
 
                 case MyString.IsLegalBackupName_RESULT.ILLEGAL_CHAR:
-                    MessageBox.Show("备份名不能包含下列任何字符:\r\n\\ / : * ? \" < > | ", "提示");
+                    MessageBox.Show("备份名不能包含下列任何字符:\n\\ / : * ? \" < > | ", "提示");
                     break;
 
                 case MyString.IsLegalBackupName_RESULT.LEGAL:
