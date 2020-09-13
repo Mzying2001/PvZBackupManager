@@ -250,12 +250,8 @@ namespace PvZBackupManager
 
         private void ListBox_backups_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SetBottomText(string.Format("已备份存档{0}个", listBox_backups.Items.Count));
-
-            if (listBox_backups.SelectedIndex >= 0)
-                button_restore.Enabled = true;
-            else
-                button_restore.Enabled = false;
+            button_restore.Enabled = listBox_backups.SelectedIndex >= 0;
+            BottomText = string.Format("已备份存档{0}个", listBox_backups.Items.Count);
         }
 
         private void ListBox_backups_MouseDown(object sender, MouseEventArgs e)
@@ -377,6 +373,7 @@ namespace PvZBackupManager
         private void Delete_Click(object sender, EventArgs e)
         {
             string SelectedItem = listBox_backups.SelectedItem.ToString();
+
             string text;
             text = "确定要删除备份\"{0}\"吗?\r\n此操作不可恢复";
             text = string.Format(text, SelectedItem);
@@ -450,19 +447,19 @@ namespace PvZBackupManager
         }
 
         /// <summary>
-        /// 更改窗口底部标签的标题
+        /// 窗口底部标签的标题
         /// </summary>
-        /// <param name="str">显示的文本</param>
-        private void SetBottomText(string str)
+        private string BottomText
         {
-            label_info.Text = str;
+            set
+            {
+                label_info.Text = value;
+            }
         }
 
         /// <summary>
         /// 交换listbox中的item
         /// </summary>
-        /// <param name="i">index1</param>
-        /// <param name="j">index2</param>
         private void ListBoxSwap(int i, int j)
         {
             if (i != j)
@@ -528,35 +525,29 @@ namespace PvZBackupManager
             FolderBrowserDialog fbd = new FolderBrowserDialog
             {
                 ShowNewFolderButton = false,
+
+                SelectedPath = conf["Path", "xp"],
+
                 Description = Environment.OSVersion.Version.Major < 6 ?
                 "当前系统版本过低，您需要手动选择存档路径\r\n\r\n请选择\"userdata\"所在目录" :
                 "找不到游戏存档路径，您需要手动选择存档路径\r\n\r\n请选择\"userdata\"所在目录"
             };
-            string path_xp = Path_BKdata + @"\xp.bin";
-            if (File.Exists(path_xp))
+
+            if (fbd.ShowDialog() == DialogResult.OK)
             {
-                string tmp = File.ReadAllText(path_xp);
-                if (Directory.Exists(tmp)) fbd.SelectedPath = tmp;
-            }
-            else
-            {
-                File.WriteAllText(path_xp, null);
-            }
-            DialogResult fbd_dr = fbd.ShowDialog();
-            if (fbd_dr == DialogResult.OK)
-            {
-                File.WriteAllText(path_xp, fbd.SelectedPath);
                 path_userdata = fbd.SelectedPath + @"\userdata";
+
                 if (Directory.Exists(path_userdata))
                 {
+                    conf["Path", "xp"] = fbd.SelectedPath;
                     gamever = PVZVersion.XPMODE;
+                    RemoveReadOnly();
                 }
                 else
                 {
                     ShowErrorMessage(string.Format("找不到路径\"{0}\"", path_userdata));
                     Environment.Exit(0);
                 }
-                RemoveReadOnly();
             }
             else
             {
@@ -583,16 +574,9 @@ namespace PvZBackupManager
         /// <summary>
         /// 弹窗显示错误信息
         /// </summary>
-        /// <param name="message">错误信息</param>
         private void ShowErrorMessage(string message)
         {
-            MessageBox.Show(
-                this,
-                message,
-                "错误",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Error
-                );
+            MessageBox.Show(this, message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

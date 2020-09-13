@@ -31,7 +31,7 @@ namespace PvZBackupManager
             label_info.Top       = label_title.Top + label_title.Height;
             label_info.Left      = label_title.Left + (label_title.Width - label_info.Width) / 2;
 
-            linkLabel_update.Enabled = !(Environment.OSVersion.Version.Major < 6);
+            linkLabel_update.Enabled = Environment.OSVersion.Version.Major >= 6;
         }
 
         private void Form_about_FormClosing(object sender, FormClosingEventArgs e)
