@@ -59,13 +59,12 @@ namespace PvZBackupManager
                 Text = "debug",
                 AutoSize = true
             };
-            button_debug.Click += Debug_Click;
-            Controls.Add(button_debug);
-            void Debug_Click(object sender, EventArgs e)
+            button_debug.Click += new EventHandler((object sender, EventArgs e) =>
             {
-                string output = "";
-                output += 
-                    string.Format("【文件夹路径】\r\n{0}\r\n{1}\r\n{2}\r\n{3}\r\n{4}\r\n{5}\r\n\r\n",
+                string output = string.Empty;
+
+                output +=
+                    string.Format("【文件夹路径】\n{0}\n{1}\n{2}\n{3}\n{4}\n{5}\n\n",
                     Path_AppData,
                     Path_BKdata,
                     Path_backups,
@@ -73,15 +72,20 @@ namespace PvZBackupManager
                     PATH_PVZUSERDATA_STEAM,
                     PATH_PVZUSERDATA_ZOO_JP
                     );
-                output += string.Format("【URL】\r\n{0}\r\n{1}\r\n\r\n",
+
+                output +=
+                    string.Format("【URL】\n{0}\n{1}\n\n",
                     URL_VIEWSOURCE,
                     URL_UPDATE
                     );
+
                 output +=
-                    string.Format("【当前】\r\nOS version (major): {0}\r\ngamever: {1}\r\npath_userdata: {2}",
+                    string.Format("【当前】\nOS version (major): {0}\ngamever: {1}\npath_userdata: {2}",
                     Environment.OSVersion.Version.Major, gamever, path_userdata);
+
                 MessageBox.Show(output, "DEBUG");
-            }
+            });
+            Controls.Add(button_debug);
 #endif
             #endregion
 
