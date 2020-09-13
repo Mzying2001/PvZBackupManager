@@ -1,7 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
-using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
 
 namespace PvZBackupManager
 {
@@ -10,7 +9,6 @@ namespace PvZBackupManager
         /// <summary>
         /// 删除文件夹
         /// </summary>
-        /// <param name="path">文件夹路径</param>
         public static void Delete(string path)
         {
             path = FormatPath(path);
@@ -31,23 +29,22 @@ namespace PvZBackupManager
                 Directory.Delete(path);
             }
         }
+
         /// <summary>
         /// 删除文件夹
         /// </summary>
-        /// <param name="path">文件夹路径</param>
-        /// <param name="checkUse">检查是否有文件被占用</param>
         public static void Delete(string path, bool checkUse)
         {
-            if (checkUse)
-                if (IsAnyFileInUse(path))
-                    throw new Exception("无法删除文件夹，因为有文件被占用");
+            if (checkUse && IsAnyFileInUse(path))
+            {
+                throw new Exception("无法删除文件夹，因为有文件被占用");
+            }
             Delete(path);
         }
+
         /// <summary>
         /// 复制文件夹
         /// </summary>
-        /// <param name="sourcePath">源文件夹路径</param>
-        /// <param name="destiPath">目标文件夹路径</param>
         public static void Copy(string sourcePath, string destiPath)
         {
             sourcePath = FormatPath(sourcePath);
@@ -81,45 +78,40 @@ namespace PvZBackupManager
                 }
             }
         }
+
         /// <summary>
         /// 复制文件夹
         /// </summary>
-        /// <param name="sourcePath">源文件夹路径</param>
-        /// <param name="destiPath">目标文件夹路径</param>
-        /// <param name="checkUse">检查是否有文件被占用</param>
-        public static void Copy(string sourcePath, string destiPath,bool checkUse)
+        public static void Copy(string sourcePath, string destiPath, bool checkUse)
         {
-            if (checkUse)
-                if (IsAnyFileInUse(sourcePath) || IsAnyFileInUse(destiPath))
-                    throw new Exception("无法复制文件夹，因为有文件被占用");
+            if (checkUse && (IsAnyFileInUse(sourcePath) || IsAnyFileInUse(destiPath)))
+            {
+                throw new Exception("无法复制文件夹，因为有文件被占用");
+            }
             Copy(sourcePath, destiPath);
         }
+
         /// <summary>
         /// 移动文件夹
         /// </summary>
-        /// <param name="sourcePath">源文件夹路径</param>
-        /// <param name="destPath">目标文件夹路径</param>
         public static void Move(string sourcePath, string destPath)
         {
             Copy(sourcePath, destPath);
             Delete(sourcePath);
         }
+
         /// <summary>
         /// 移动文件夹
         /// </summary>
-        /// <param name="sourcePath">源文件夹路径</param>
-        /// <param name="destPath">目标文件夹路径</param>
-        /// <param name="checkUse">检查是否有文件被占用</param>
         public static void Move(string sourcePath, string destPath, bool checkUse)
         {
             Copy(sourcePath, destPath, checkUse);
             Delete(sourcePath, checkUse);
         }
+
         /// <summary>
         /// 格式化文件夹路径
         /// </summary>
-        /// <param name="path">文件夹路径</param>
-        /// <returns></returns>
         public static string FormatPath(string path)
         {
             path = path.Replace('/', '\\');
@@ -129,34 +121,34 @@ namespace PvZBackupManager
             }
             return path;
         }
+
         /// <summary>
         /// 获取路径中所有文件路径
         /// </summary>
-        /// <param name="path">文件夹路径</param>
-        /// <returns></returns>
         public static string[] GetFileList(string path)
         {
-            string list = "";
-            void List(string path_)
+            List<string> list = new List<string>();
+
+            void List(string _path)
             {
-                foreach(var dir in Directory.GetDirectories(path_))
+                foreach(var dir in Directory.GetDirectories(_path))
                 {
                     List(dir);
                 }
-                foreach(var file in Directory.GetFiles(path_))
+                foreach(var file in Directory.GetFiles(_path))
                 {
-                    list += file + "\r\n";
+                    list.Add(file);
                 }
             }
+
             List(path);
-            list = list.Trim();
-            return Regex.Split(list, "\r\n");
+
+            return list.ToArray();
         }
+
         /// <summary>
         /// 判断文件是否被占用
         /// </summary>
-        /// <param name="path">文件路径</param>
-        /// <returns>是否被占用</returns>
         public static bool IsFileInUse(string path)
         {
             bool inUse = true;
@@ -168,7 +160,6 @@ namespace PvZBackupManager
             }
             catch
             {
-
             }
             finally
             {
@@ -177,17 +168,17 @@ namespace PvZBackupManager
             }
             return inUse;
         }
+
         /// <summary>
         /// 判断路径中是否有文件被占用
         /// </summary>
-        /// <param name="path">文件夹路径</param>
-        /// <returns>是否有文件被占用</returns>
         public static bool IsAnyFileInUse(string path)
         {
             foreach(var file in GetFileList(path))
             {
                 if (!File.Exists(file))
                     continue;
+
                 if (IsFileInUse(file))
                     return true;
             }
