@@ -165,11 +165,11 @@ namespace PvZBackupManager
             tb.ScrollToCaret();
 
             Controls.Add(tb);
-            SizeChanged += new EventHandler((object sender, EventArgs e) =>
+            SizeChanged += (object sender, EventArgs e) =>
             {
                 tb.Width  = ClientSize.Width;
                 tb.Height = ClientSize.Height;
-            });
+            };
         }
     }
 

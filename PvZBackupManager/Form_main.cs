@@ -61,7 +61,7 @@ namespace PvZBackupManager
                 Left = 154,
                 Top = 19
             };
-            button_debug.Click += new EventHandler((object sender, EventArgs e) =>
+            button_debug.Click += (object sender, EventArgs e) =>
             {
                 string output = string.Empty;
 
@@ -84,7 +84,7 @@ namespace PvZBackupManager
                     Environment.OSVersion.Version.Major, gamever, path_userdata);
 
                 MessageBox.Show(output, "DEBUG");
-            });
+            };
             Controls.Add(button_debug);
 #endif
             #endregion
