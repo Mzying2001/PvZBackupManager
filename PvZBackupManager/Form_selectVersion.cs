@@ -7,7 +7,7 @@ namespace PvZBackupManager
     public partial class Form_selectVersion : Form
     {
 
-        private int dialog_result = PVZVersion.NONE;
+        public new int DialogResult = PVZVersion.NONE;
 
         private readonly IniFile conf = new IniFile(MyString.Path_conf);
 
@@ -41,29 +41,29 @@ namespace PvZBackupManager
 
         private void Button_original_Click(object sender, EventArgs e)
         {
-            dialog_result = PVZVersion.ORIGINAL;
+            DialogResult = PVZVersion.ORIGINAL;
             Close();
         }
 
         private void Button_steam_Click(object sender, EventArgs e)
         {
-            dialog_result = PVZVersion.STEAM;
+            DialogResult = PVZVersion.STEAM;
             Close();
         }
 
         private void Button_zoo_jp_Click(object sender, EventArgs e)
         {
-            dialog_result = PVZVersion.ZOO_JP;
+            DialogResult = PVZVersion.ZOO_JP;
             Close();
         }
 
         private void Form_selectVersion_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (dialog_result != PVZVersion.NONE)
+            if (DialogResult != PVZVersion.NONE)
             {
                 if (checkBox_remember.Checked)
                 {
-                    conf.WriteValue("var", "gamever", dialog_result);
+                    conf.WriteValue("var", "gamever", DialogResult);
                 }
                 else
                 {
@@ -75,7 +75,7 @@ namespace PvZBackupManager
         public new int ShowDialog()
         {
             base.ShowDialog();
-            return dialog_result;
+            return DialogResult;
         }
     }
 }

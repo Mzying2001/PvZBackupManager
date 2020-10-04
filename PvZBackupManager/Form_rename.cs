@@ -6,7 +6,7 @@ namespace PvZBackupManager
     public partial class Form_rename : Form
     {
 
-        private string dialog_result = null;
+        public new string DialogResult = null;
 
         private readonly string OldName;
 
@@ -50,7 +50,7 @@ namespace PvZBackupManager
                     }
                     else
                     {
-                        dialog_result = name;
+                        DialogResult = name;
                         Close();
                     }
                     break;
@@ -66,7 +66,7 @@ namespace PvZBackupManager
         public new string ShowDialog()
         {
             base.ShowDialog();
-            return dialog_result;
+            return DialogResult;
         }
     }
 }

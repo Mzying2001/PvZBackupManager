@@ -7,7 +7,7 @@ namespace PvZBackupManager
     public partial class Form_create : Form
     {
 
-        private string dialog_result = null;
+        public new string DialogResult = null;
 
         public Form_create(int gamever)
         {
@@ -58,7 +58,7 @@ namespace PvZBackupManager
                     break;
 
                 case MyString.IsLegalBackupName_RESULT.LEGAL:
-                    dialog_result = name;
+                    DialogResult = name;
                     Close();
                     break;
             }
@@ -74,7 +74,7 @@ namespace PvZBackupManager
         public new string ShowDialog()
         {
             base.ShowDialog();
-            return dialog_result;
+            return DialogResult;
         }
     }
 }
