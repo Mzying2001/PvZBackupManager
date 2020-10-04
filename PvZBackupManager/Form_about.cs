@@ -23,13 +23,19 @@ namespace PvZBackupManager
         private void Form_about_Load(object sender, EventArgs e)
         {
             label_info.Text = string.Format("版本 {0}-{1} | by {2}", Application.ProductVersion, BUILDVER, Application.CompanyName);
-            
-            pictureBox_icon.Top  = (ClientSize.Height - pictureBox_icon.Height) / 2;
+
+            pictureBox_icon.Top  = (ClientSize.Height - pictureBox_icon.Height) / 2 - 10;
             pictureBox_icon.Left = (ClientSize.Width - pictureBox_icon.Width - label_title.Width) / 2;
-            label_title.Top      = (ClientSize.Height - label_title.Height - label_info.Height) / 2;
+            label_title.Top      = (ClientSize.Height - label_title.Height - label_info.Height) / 2 - 10;
             label_title.Left     = pictureBox_icon.Left + pictureBox_icon.Width;
             label_info.Top       = label_title.Top + label_title.Height;
             label_info.Left      = label_title.Left + (label_title.Width - label_info.Width) / 2;
+
+            linkLabel_update.Top = linkLabel_updatelog.Top = linkLabel_viewSource.Top = ClientSize.Height - linkLabel_update.Height - 10;
+
+            linkLabel_update.Left = ClientSize.Width - linkLabel_update.Width - 10;
+            linkLabel_viewSource.Left = linkLabel_update.Left - linkLabel_viewSource.Width - 6;
+            linkLabel_updatelog.Left = linkLabel_viewSource.Left - linkLabel_updatelog.Width - 6;
 
             linkLabel_update.Enabled = Environment.OSVersion.Version.Major >= 6;
         }
@@ -144,7 +150,7 @@ namespace PvZBackupManager
         };
         public Form_log(string message, string title)
         {
-            Width    = 450;
+            Width    = 460;
             Height   = 500;
             ShowIcon = false;
             TopMost  = true;

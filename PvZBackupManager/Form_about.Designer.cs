@@ -69,7 +69,7 @@
             // linkLabel_updatelog
             // 
             this.linkLabel_updatelog.AutoSize = true;
-            this.linkLabel_updatelog.Location = new System.Drawing.Point(212, 115);
+            this.linkLabel_updatelog.Location = new System.Drawing.Point(202, 72);
             this.linkLabel_updatelog.Name = "linkLabel_updatelog";
             this.linkLabel_updatelog.Size = new System.Drawing.Size(56, 17);
             this.linkLabel_updatelog.TabIndex = 6;
@@ -80,7 +80,7 @@
             // linkLabel_viewSource
             // 
             this.linkLabel_viewSource.AutoSize = true;
-            this.linkLabel_viewSource.Location = new System.Drawing.Point(274, 115);
+            this.linkLabel_viewSource.Location = new System.Drawing.Point(264, 72);
             this.linkLabel_viewSource.Name = "linkLabel_viewSource";
             this.linkLabel_viewSource.Size = new System.Drawing.Size(56, 17);
             this.linkLabel_viewSource.TabIndex = 8;
@@ -91,7 +91,7 @@
             // linkLabel_update
             // 
             this.linkLabel_update.AutoSize = true;
-            this.linkLabel_update.Location = new System.Drawing.Point(336, 115);
+            this.linkLabel_update.Location = new System.Drawing.Point(326, 72);
             this.linkLabel_update.Name = "linkLabel_update";
             this.linkLabel_update.Size = new System.Drawing.Size(56, 17);
             this.linkLabel_update.TabIndex = 9;
@@ -104,7 +104,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(404, 141);
+            this.ClientSize = new System.Drawing.Size(444, 191);
             this.Controls.Add(this.linkLabel_update);
             this.Controls.Add(this.linkLabel_viewSource);
             this.Controls.Add(this.linkLabel_updatelog);
