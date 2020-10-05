@@ -9,9 +9,25 @@ namespace PvZBackupManager
 
         public new string DialogResult = null;
 
-        public Form_create(int gamever)
+        public Form_create(int gamever, DPI dpi)
         {
             InitializeComponent();
+
+            #region Dpi调整组建大小
+
+            float dx = dpi.DpiX / 100;
+            float dy = dpi.DpiY / 100;
+
+            Width = (int)(Width * dx);
+            Height = (int)(Height * dy);
+
+            textBox_name.Width = (int)(textBox_name.Width * dx);
+            button_ok.Width = (int)(button_ok.Width * dx);
+
+            textBox_name.Top = (ClientSize.Height - textBox_name.Height) / 2;
+            button_ok.Left = textBox_name.Right + 6;
+
+            #endregion
 
             string name;
             switch (gamever)

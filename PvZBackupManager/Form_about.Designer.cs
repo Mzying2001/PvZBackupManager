@@ -104,7 +104,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(444, 191);
+            this.ClientSize = new System.Drawing.Size(404, 141);
             this.Controls.Add(this.linkLabel_update);
             this.Controls.Add(this.linkLabel_viewSource);
             this.Controls.Add(this.linkLabel_updatelog);

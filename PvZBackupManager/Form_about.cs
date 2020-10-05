@@ -9,15 +9,20 @@ namespace PvZBackupManager
 {
     public partial class Form_about : Form
     {
+        DPI dpi;
         Thread update;
 #if DEBUG
         const string BUILDVER = "debug";
 #else
         const string BUILDVER = "release";
 #endif
-        public Form_about()
+        public Form_about(DPI dpi)
         {
             InitializeComponent();
+
+            this.dpi = dpi;
+            Width  = (int)(Width * dpi.DpiX / 100);
+            Height = (int)(Height * dpi.DpiY / 100);
         }
 
         private void Form_about_Load(object sender, EventArgs e)
@@ -50,7 +55,7 @@ namespace PvZBackupManager
 
         private void LinkLabel_updatelog_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            new Form_log(Properties.Resources.updatelog, "更新日志").ShowDialog();
+            new Form_log(Properties.Resources.updatelog, "更新日志", dpi).ShowDialog();
         }
 
         private void LinkLabel_viewSource_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -148,13 +153,16 @@ namespace PvZBackupManager
             BorderStyle = BorderStyle.None,
             Font        = new Font(new FontFamily("黑体"), 10, FontStyle.Regular),
         };
-        public Form_log(string message, string title)
+        public Form_log(string message, string title, DPI dpi)
         {
-            Width    = 460;
+            Width    = 450;
             Height   = 500;
             ShowIcon = false;
             TopMost  = true;
             Text     = title;
+
+            Width  = (int)(Width * dpi.DpiX / 100);
+            Height = (int)(Height * dpi.DpiY / 100);
 
             MaximizeBox   = false;
             MinimizeBox   = false;

@@ -11,7 +11,9 @@ namespace PvZBackupManager
         
         private readonly IniFile     conf;
         private readonly StrListFile list;
-        private readonly LinkLabel   button_debug;
+
+        private LinkLabel   button_debug;
+        private DPI dpi;
 
         private bool   justStartUp = true;
         private int    gamever;
@@ -51,44 +53,6 @@ namespace PvZBackupManager
             conf = new IniFile(Path_conf);
             list = new StrListFile(Path_list);
             SelectVersion();
-
-            #region 添加DEBUG按钮（此部分代码只在debug下执行）
-#if DEBUG
-            button_debug = new LinkLabel
-            {
-                Text = "DEBUG",
-                AutoSize = true,
-                Left = 154,
-                Top = 19
-            };
-            button_debug.Click += (object sender, EventArgs e) =>
-            {
-                string output = string.Empty;
-
-                output +=
-                    string.Format("【文件夹路径】\n{0}\n{1}\n{2}\n{3}\n{4}\n{5}\n\n",
-                    Path_AppData,
-                    Path_BKdata,
-                    Path_backups,
-                    PATH_PVZUSERDATA_ORIGINAL,
-                    PATH_PVZUSERDATA_STEAM,
-                    PATH_PVZUSERDATA_ZOO_JP
-                    );
-
-                output +=
-                    string.Format("【URL】\n{0}\n{1}\n\n",
-                    URL_VIEWSOURCE, URL_UPDATE);
-
-                output +=
-                    string.Format("【当前】\nOS version (major): {0}\ngamever: {1}\npath_userdata: {2}",
-                    Environment.OSVersion.Version.Major, gamever, path_userdata);
-
-                MessageBox.Show(output, "DEBUG");
-            };
-            Controls.Add(button_debug);
-#endif
-            #endregion
-
         }
 
         private void Form_main_Load(object sender, EventArgs e)
@@ -123,6 +87,24 @@ namespace PvZBackupManager
                     }
                 }
             }
+
+            #endregion
+
+            #region Dpi调整组件大小
+
+            dpi = Dpi.GetDpi(this);
+
+            float dx = dpi.DpiX / 100;
+            float dy = dpi.DpiY / 100;
+
+            button_create.Width = (int)(button_create.Width * dx);
+            button_create.Height = (int)(button_create.Height * dy);
+
+            button_restore.Width = (int)(button_restore.Width * dx);
+            button_restore.Height = (int)(button_restore.Height * dy);
+
+            button_restore.Left = button_create.Right + 6;
+            listBox_backups.Top = button_create.Bottom + 6;
 
             #endregion
 
@@ -171,6 +153,48 @@ namespace PvZBackupManager
             TopMost = conf.GetBoolean("var", "TopMost");
 
             justStartUp = false;
+
+            #region 添加DEBUG按钮（此部分代码只在debug下执行）
+#if DEBUG
+            button_debug = new LinkLabel
+            {
+                Text = "DEBUG",
+                AutoSize = true,
+                Left = button_restore.Right + 6,
+                Top = button_restore.Top
+            };
+            button_debug.Click += (object sender_, EventArgs e_) =>
+            {
+                string output = string.Empty;
+
+                output +=
+                    string.Format("【文件夹路径】\n{0}\n{1}\n{2}\n{3}\n{4}\n{5}\n\n",
+                    Path_AppData,
+                    Path_BKdata,
+                    Path_backups,
+                    PATH_PVZUSERDATA_ORIGINAL,
+                    PATH_PVZUSERDATA_STEAM,
+                    PATH_PVZUSERDATA_ZOO_JP
+                    );
+
+                output +=
+                    string.Format("【URL】\n{0}\n{1}\n\n",
+                    URL_VIEWSOURCE, URL_UPDATE);
+
+                output +=
+                    string.Format("【DPI】\nDpiX: {0}\nDpiY: {1}\n\n",
+                    dpi.DpiX, dpi.DpiY);
+
+                output +=
+                    string.Format("【当前】\nOS version (major): {0}\ngamever: {1}\npath_userdata: {2}",
+                    Environment.OSVersion.Version.Major, gamever, path_userdata);
+
+                MessageBox.Show(output, "DEBUG");
+            };
+            Controls.Add(button_debug);
+#endif
+            #endregion
+
         }
 
         private void Form_main_SizeChanged(object sender, EventArgs e)
@@ -199,7 +223,7 @@ namespace PvZBackupManager
 
         private void Button_create_Click(object sender, EventArgs e)
         {
-            string name = new Form_create(gamever).ShowDialog();
+            string name = new Form_create(gamever, dpi).ShowDialog();
 
             if (string.IsNullOrEmpty(name))
             {
@@ -383,7 +407,7 @@ namespace PvZBackupManager
         private void Rename_Click(object sender, EventArgs e)
         {
             string SelectedItem = listBox_backups.SelectedItem.ToString();
-            string name = new Form_rename(SelectedItem).ShowDialog();
+            string name = new Form_rename(SelectedItem, dpi).ShowDialog();
             
             if (string.IsNullOrEmpty(name))
             {
@@ -437,7 +461,7 @@ namespace PvZBackupManager
 
         private void About_Click(object sender, EventArgs e)
         {
-            new Form_about().ShowDialog();
+            new Form_about(dpi).ShowDialog();
         }
 
         /// <summary>

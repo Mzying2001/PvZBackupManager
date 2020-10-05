@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DllImports.cs" />
+    <Compile Include="Dpi.cs" />
     <Compile Include="IniFile.cs" />
     <Compile Include="Dir.cs" />
     <Compile Include="Form_about.cs">
