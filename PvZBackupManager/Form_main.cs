@@ -12,7 +12,7 @@ namespace PvZBackupManager
         private readonly IniFile     conf;
         private readonly StrListFile list;
 
-        private LinkLabel   button_debug;
+        private LinkLabel button_debug;
         private DPI dpi;
 
         private bool   justStartUp = true;

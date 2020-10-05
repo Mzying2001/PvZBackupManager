@@ -22,6 +22,9 @@ namespace PvZBackupManager
             {
                 dx = g.DpiX;
                 dy = g.DpiY;
+
+                while ((int)dx % 5 != 0) dx++;
+                while ((int)dy % 5 != 0) dy++;
             }
             catch (Exception)
             {

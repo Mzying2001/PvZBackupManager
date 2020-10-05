@@ -25,6 +25,7 @@ namespace PvZBackupManager
             button_ok.Width = (int)(button_ok.Width * dx);
 
             textBox_name.Top = (ClientSize.Height - textBox_name.Height) / 2;
+            textBox_name.Left = (ClientSize.Width - textBox_name.Width - button_ok.Width - 6) / 2;
             button_ok.Left = textBox_name.Right + 6;
 
             #endregion
