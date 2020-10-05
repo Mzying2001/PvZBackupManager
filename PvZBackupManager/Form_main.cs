@@ -508,7 +508,7 @@ namespace PvZBackupManager
                 return;
             }
 
-            ver_tmp = (ver_tmp == PVZVersion.VAR) ? new Form_selectVersion().ShowDialog() : ver_tmp;
+            ver_tmp = (ver_tmp == PVZVersion.VAR) ? new Form_selectVersion(dpi).ShowDialog() : ver_tmp;
 
             switch (ver_tmp)
             {
