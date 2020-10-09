@@ -3,9 +3,18 @@ using System.Linq;
 
 namespace PvZBackupManager
 {
+    enum CheckName_Result
+    {
+        LEGAL,
+        ILLEGAL_CHAR,
+        ILLEGAL_EMPTY,
+        ILLEGAL_LENGHT,
+    }
+
     static class MyString
     {
         public static string Path_AppData = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+
         public static string Path_BKdata  = Path_AppData + @"\PvZBackupManager"; //存档管理器文档路径
         public static string Path_backups = Path_BKdata  + @"\backups";          //备份文件路径
 
@@ -19,38 +28,31 @@ namespace PvZBackupManager
         public const string URL_VIEWSOURCE = "https://github.com/Mzying2001/PvZBackupManager";
         public const string URL_UPDATE     = "https://Mzying2001.github.io/ApplicationUpdates/PvZBackupManager.txt";
 
-        public enum IsLegalBackupName_RESULT
+        public static CheckName_Result CheckBackupName(string name)
         {
-            LEGAL,
-            ILLEGAL_CHAR,
-            ILLEGAL_EMPTY,
-            ILLEGAL_LENGHT,
-        }
-        public static IsLegalBackupName_RESULT IsLegalBackupName(string str)
-        {
-            if (string.IsNullOrEmpty(str))
+            if (string.IsNullOrEmpty(name))
             {
-                return IsLegalBackupName_RESULT.ILLEGAL_EMPTY;
+                return CheckName_Result.ILLEGAL_EMPTY;
             }
             else
             {
-                string tmp = str.Trim();
+                string tmp = name.Trim();
 
                 if (tmp.Length > 100)
                 {
-                    return IsLegalBackupName_RESULT.ILLEGAL_LENGHT;
+                    return CheckName_Result.ILLEGAL_LENGHT;
                 }
                 else
                 {
                     char[] illegalchars = { '\\', '/', ':', '*', '?', '\"', '<', '>', '|' };
                     foreach (char c in illegalchars)
                     {
-                        if (str.Contains(c))
+                        if (name.Contains(c))
                         {
-                            return IsLegalBackupName_RESULT.ILLEGAL_CHAR;
+                            return CheckName_Result.ILLEGAL_CHAR;
                         }
                     }
-                    return IsLegalBackupName_RESULT.LEGAL;
+                    return CheckName_Result.LEGAL;
                 }
             }
         }
