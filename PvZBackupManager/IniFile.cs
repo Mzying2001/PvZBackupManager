@@ -1,43 +1,38 @@
-﻿using System.IO;
+﻿using System.Runtime.InteropServices;
 using System.Text;
-using static PvZBackupManager.DllImports;
 
 namespace PvZBackupManager
 {
     class IniFile
     {
 
-        public string Path;
+        [DllImport("kernel32")]
+        private static extern long WritePrivateProfileString(string section, string key, string val, string filePath);
 
-        public bool Exists => File.Exists(Path);
+        [DllImport("kernel32")]
+        private static extern int GetPrivateProfileString(string section, string key, string def, StringBuilder retVal, int size, string filePath);
+
+        public string Path { get; set; }
+
+        public bool Exists => System.IO.File.Exists(Path);
 
         public IniFile(string path)
         {
             Path = path;
         }
 
-        /// <summary>
-        /// 向配置文件写入值
-        /// </summary>
-        public static void ProfileWriteValue(string section, string key, string value, string path)
-        {
-            WritePrivateProfileString(section, key, value, path);
-        }
-
-        /// <summary>
-        /// 读取配置文件的值
-        /// </summary>
-        public static string ProfileReadValue(string section, string key, string path)
-        {
-            StringBuilder sb = new StringBuilder(255);
-            GetPrivateProfileString(section, key, "", sb, 255, path);
-            return sb.ToString().Trim();
-        }
-
         public string this[string section,string key]
         {
-            get => ProfileReadValue(section, key, Path);
-            set => ProfileWriteValue(section, key, value, Path);
+            get
+            {
+                StringBuilder sb = new StringBuilder(255);
+
+                GetPrivateProfileString(section, key, string.Empty, sb, 255, Path);
+
+                return sb.ToString().Trim();
+            }
+
+            set => WritePrivateProfileString(section, key, value, Path);
         }
 
         public void WriteValue(string section, string key, object value)
