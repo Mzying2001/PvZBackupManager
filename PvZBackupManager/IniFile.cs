@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text;
 using static PvZBackupManager.DllImports;
 
@@ -6,11 +7,20 @@ namespace PvZBackupManager
 {
     class IniFile
     {
+        /// <summary>
+        /// ini文件的路径
+        /// </summary>
+        public string Path { get; set; }
 
-        public string Path;
+        /// <summary>
+        /// 目标文件是否存在
+        /// </summary>
+        public bool IsFileExist => File.Exists(Path);
 
-        public bool Exists => File.Exists(Path);
-
+        /// <summary>
+        /// IniFile构造器
+        /// </summary>
+        /// <param name="path">ini文件的路径</param>
         public IniFile(string path)
         {
             Path = path;
@@ -34,7 +44,7 @@ namespace PvZBackupManager
             return sb.ToString().Trim();
         }
 
-        public string this[string section,string key]
+        public string this[string section, string key]
         {
             get => ProfileReadValue(section, key, Path);
             set => ProfileWriteValue(section, key, value, Path);
@@ -45,33 +55,9 @@ namespace PvZBackupManager
             this[section, key] = value.ToString();
         }
 
-        public string GetString(string section, string key)
+        public T GetObject<T>(string section, string key)
         {
-            return this[section, key];
-        }
-
-        public int GetInteger(string section, string key)
-        {
-            try
-            {
-                return int.Parse(this[section, key]);
-            }
-            catch
-            {
-                return -1;
-            }
-        }
-
-        public bool GetBoolean(string section, string key)
-        {
-            try
-            {
-                return bool.Parse(this[section, key]);
-            }
-            catch
-            {
-                return false;
-            }
+            return (T)Convert.ChangeType(this[section, key], typeof(T));
         }
 
     }

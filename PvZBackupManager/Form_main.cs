@@ -116,10 +116,10 @@ namespace PvZBackupManager
 
             int[] ws = new int[4]
             {
-                conf.GetInteger("WindowState", "x"),
-                conf.GetInteger("WindowState", "y"),
-                conf.GetInteger("WindowState", "w"),
-                conf.GetInteger("WindowState", "h"),
+                conf.GetObject<int>("WindowState", "x"),
+                conf.GetObject<int>("WindowState", "y"),
+                conf.GetObject<int>("WindowState", "w"),
+                conf.GetObject<int>("WindowState", "h"),
             };
             bool available = true;
             foreach(int tmp in ws)
@@ -150,7 +150,7 @@ namespace PvZBackupManager
 
             #endregion
 
-            TopMost = conf.GetBoolean("var", "TopMost");
+            TopMost = conf.GetObject<bool>("var", "TopMost");
 
             justStartUp = false;
 
@@ -499,7 +499,7 @@ namespace PvZBackupManager
         {
             int ver_tmp;
 
-            ver_tmp = conf.GetInteger("var", "gamever");
+            ver_tmp = conf.GetObject<int>("var", "gamever");
             ver_tmp = (PVZVersion.Exists(ver_tmp) && justStartUp) ? ver_tmp : PVZVersion.Check();
 
             if (ver_tmp == PVZVersion.NONE)
