@@ -1,4 +1,10 @@
-# PvZBackupManager
+<center>
+
+![EDRJt.png](https://img.wenhairu.com/images/2021/02/20/EDRJt.png)
+
+# PvZ存档管理器
+
+</center>
 
 ## 关于软件
 
@@ -6,11 +12,15 @@
 
 ## 屏幕截图
 
-![image_MainWindow](https://github.com/Mzying2001/PvZBackupManager/blob/master/ScreenShots/MainWindow.png)
+<center>
 
-![image_About](https://github.com/Mzying2001/PvZBackupManager/blob/master/ScreenShots/About.png)
+![EDyPP.png](https://img.wenhairu.com/images/2021/02/20/EDyPP.png)
 
-![image_SelectVersion](https://github.com/Mzying2001/PvZBackupManager/blob/master/ScreenShots/SelectVersion.png)
+![EDnah.png](https://img.wenhairu.com/images/2021/02/20/EDnah.png)
+
+![EDpxu.png](https://img.wenhairu.com/images/2021/02/20/EDpxu.png)
+
+</center>
 
 ## 支持版本
 
