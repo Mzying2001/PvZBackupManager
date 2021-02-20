@@ -1,10 +1,4 @@
-<center>
-
-![EDRJt.png](https://img.wenhairu.com/images/2021/02/20/EDRJt.png)
-
 # PvZ存档管理器
-
-</center>
 
 ## 关于软件
 
@@ -12,15 +6,11 @@
 
 ## 屏幕截图
 
-<center>
-
 ![EDyPP.png](https://img.wenhairu.com/images/2021/02/20/EDyPP.png)
 
 ![EDnah.png](https://img.wenhairu.com/images/2021/02/20/EDnah.png)
 
 ![EDpxu.png](https://img.wenhairu.com/images/2021/02/20/EDpxu.png)
-
-</center>
 
 ## 支持版本
 
