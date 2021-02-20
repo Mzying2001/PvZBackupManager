@@ -60,21 +60,22 @@ namespace PvZBackupManager
         private void Button_ok_Click(object sender, EventArgs e)
         {
             string name = textBox_name.Text.Trim();
-            switch (MyString.IsLegalBackupName(name))
+
+            switch (MyString.CheckBackupName(name))
             {
-                case MyString.IsLegalBackupName_RESULT.ILLEGAL_EMPTY:
+                case CheckName_Result.ILLEGAL_EMPTY:
                     MessageBox.Show("请输入备份名", "提示");
                     break;
 
-                case MyString.IsLegalBackupName_RESULT.ILLEGAL_LENGHT:
+                case CheckName_Result.ILLEGAL_LENGHT:
                     MessageBox.Show("备份名长度不能超过100个字符", "提示");
                     break;
 
-                case MyString.IsLegalBackupName_RESULT.ILLEGAL_CHAR:
+                case CheckName_Result.ILLEGAL_CHAR:
                     MessageBox.Show("备份名不能包含下列任何字符:\n\\ / : * ? \" < > | ", "提示");
                     break;
 
-                case MyString.IsLegalBackupName_RESULT.LEGAL:
+                case CheckName_Result.LEGAL:
                     DialogResult = name;
                     Close();
                     break;
