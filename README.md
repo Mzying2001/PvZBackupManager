@@ -1,10 +1,9 @@
 <h1 align="center">
-    <img src="https://img.wenhairu.com/images/2021/03/26/aAaqP.png" alt="aAaqP.png" border="0" />
-    <br/>
+    <img src="https://github.com/Mzying2001/PvZBackupManager/blob/master/PvZBackupManager/Resources/icon_72px.png" />
+    <br />
     PvZBackupManager
-    <br/>
-    <img src="https://img.shields.io/github/license/Mzying2001/PvZBackupManager"> · <img src="https://img.shields.io/github/v/release/Mzying2001/PvZBackupManager">
-    <br/>
+    <br />
+    <img src="https://img.shields.io/github/license/Mzying2001/PvZBackupManager" /> · <img src="https://img.shields.io/github/v/release/Mzying2001/PvZBackupManager" />
 </h1>
 
 ## 关于软件
