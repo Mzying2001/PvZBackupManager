@@ -178,10 +178,6 @@ namespace PvZBackupManager
                     );
 
                 output +=
-                    string.Format("【URL】\n{0}\n{1}\n\n",
-                    URL_VIEWSOURCE, URL_UPDATE);
-
-                output +=
                     string.Format("【DPI】\nDpiX: {0}\nDpiY: {1}\n\n",
                     dpi.DpiX, dpi.DpiY);
 

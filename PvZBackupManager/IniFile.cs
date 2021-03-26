@@ -50,7 +50,14 @@ namespace PvZBackupManager
 
         public T GetObject<T>(string section, string key)
         {
-            return (T)Convert.ChangeType(this[section, key], typeof(T));
+            try
+            {
+                return (T)Convert.ChangeType(this[section, key], typeof(T));
+            }
+            catch
+            {
+                return default;
+            }
         }
 
     }
