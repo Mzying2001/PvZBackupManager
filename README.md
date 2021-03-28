@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img src="https://github.com/Mzying2001/PvZBackupManager/blob/master/PvZBackupManager/Resources/icon_72px.png" />
+    <img src="https://img.wenhairu.com/images/2021/03/28/am7sI.png" alt="am7sI.png" border="0" />
     <br />
     PvZBackupManager
     <br />
