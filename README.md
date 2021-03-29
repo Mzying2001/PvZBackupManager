@@ -3,7 +3,7 @@
     <br />
     PvZBackupManager
     <br />
-    <img src="https://img.shields.io/github/license/Mzying2001/PvZBackupManager" /> · <img src="https://img.shields.io/github/v/release/Mzying2001/PvZBackupManager" />
+    <img src="https://img.shields.io/github/license/Mzying2001/PvZBackupManager" /> <img src="https://img.shields.io/github/v/release/Mzying2001/PvZBackupManager" />
 </h1>
 
 ## 关于软件
