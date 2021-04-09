@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img src="https://gitee.com/Mzying2001/images/raw/master/PvZBackupManager/Icon72px.png" border="0" />
+    <img src="https://mzying2001.gitee.io/images/PvZBackupManager/Icon72px.png" border="0" />
     <br />
     PvZBackupManager
     <br />
@@ -12,9 +12,9 @@
 
 ## 屏幕截图
 
-![main](https://gitee.com/Mzying2001/images/raw/master/PvZBackupManager/Main.png)
+![main](https://mzying2001.gitee.io/images/PvZBackupManager/Main.png)
 
-![about](https://gitee.com/Mzying2001/images/raw/master/PvZBackupManager/About.png)
+![about](https://mzying2001.gitee.io/images/PvZBackupManager/About.png)
 
 ## 支持版本
 
